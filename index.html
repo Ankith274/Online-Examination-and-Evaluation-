@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ExamFlow — BCA 2023-2026 | Ankith Reddy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Karla:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#04070e;--bg2:#070c16;--sf:#0b1221;--sf2:#0f1a2e;
+  --bd:rgba(255,255,255,0.06);--bd2:rgba(255,255,255,0.12);
+  --tx:#d8e4f8;--tx2:#6b7f9a;--mu:#2e3d52;
+  --a:#4f7ef8;--a2:#7aa2fb;--tl:#0fb8a4;
+  --safe:#1db854;--warn:#f0a500;--danger:#e8404a;
+  --ds:#4f7ef8;--os:#0fb8a4;--js:#e8c848;--dsa:#a855f7;--ml:#f97316;
+  --r:12px;--fn:'Karla',sans-serif;--dp:'Syne',sans-serif;--mn:'JetBrains Mono',monospace;
+}
+html{font-size:14px}
+body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+button{font-family:var(--fn);cursor:pointer;border:none;outline:none}
+input,select{font-family:var(--fn)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 40% at 20% 10%,rgba(79,126,248,0.07),transparent),
+             radial-gradient(ellipse 50% 30% at 80% 80%,rgba(15,184,164,0.05),transparent)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px}
+.page{display:none;position:relative;z-index:1}
+.page.active{display:flex}
+#loginPage,#registerPage{min-height:100vh;align-items:center;justify-content:center;padding:24px}
+.auth-wrap{display:grid;grid-template-columns:1fr 1fr;max-width:920px;width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6);animation:authIn .5s cubic-bezier(.22,1,.36,1)}
+@keyframes authIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.auth-left{background:linear-gradient(145deg,#060d1e,#0a1428);padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--bd);position:relative;overflow:hidden}
+.auth-left::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(79,126,248,0.12),transparent 70%);pointer-events:none}
+.auth-left::after{content:'';position:absolute;bottom:-60px;left:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(15,184,164,0.08),transparent 70%);pointer-events:none}
+.auth-brand{position:relative;z-index:1}
+.brand-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px}
+.brand-mk{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 20px rgba(79,126,248,.4)}
+.brand-nm{font-family:var(--dp);font-size:22px;font-weight:800;letter-spacing:-.02em}
+.brand-nm em{font-style:normal;color:var(--a2)}
+.auth-tagline{font-family:var(--dp);font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.02em;margin-bottom:10px}
+.auth-sub{font-size:12.5px;color:var(--tx2);line-height:1.7;margin-bottom:28px}
+.auth-features{display:flex;flex-direction:column;gap:9px;position:relative;z-index:1}
+.af-item{display:flex;align-items:center;gap:9px;font-size:11.5px;color:var(--tx2)}
+.af-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.auth-subjects{margin-top:auto;padding-top:28px;position:relative;z-index:1}
+.as-label{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--tx2);margin-bottom:8px}
+.as-pills{display:flex;flex-wrap:wrap;gap:5px}
+.as-pill{font-family:var(--dp);font-size:9px;font-weight:600;padding:3px 9px;border-radius:100px;border:1px solid currentColor;letter-spacing:.06em;text-transform:uppercase}
+.bca-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(15,184,164,.12);border:1px solid rgba(15,184,164,.3);border-radius:8px;padding:7px 12px;margin-bottom:16px;font-size:11px;color:var(--tl);font-weight:600;font-family:var(--mn)}
+.auth-right{padding:44px 40px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;max-height:100vh}
+.auth-form-title{font-family:var(--dp);font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:5px}
+.auth-form-sub{font-size:12px;color:var(--tx2);margin-bottom:24px;line-height:1.6}
+.form-row{display:flex;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;flex:1}
+.form-label{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tx2)}
+.form-input{background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:9px;color:var(--tx);font-size:13px;padding:10px 13px;transition:border-color .2s,box-shadow .2s;outline:none;width:100%}
+.form-input:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(79,126,248,.12)}
+.form-input::placeholder{color:var(--mu)}
+.form-input.err{border-color:var(--danger)}
+.form-err{font-size:10.5px;color:var(--danger);margin-top:-10px;margin-bottom:4px;display:none}
+.form-select{background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:9px;color:var(--tx);font-size:13px;padding:10px 13px;outline:none;width:100%;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7f9a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;transition:border-color .2s}
+.form-select:focus{border-color:var(--a)}
+.form-select option{background:#0b1221}
+.form-divider{display:flex;align-items:center;gap:12px;margin:14px 0}
+.fd-line{flex:1;height:1px;background:var(--bd)}.fd-txt{font-size:10px;color:var(--tx2)}
+.btn-primary{width:100%;padding:12px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--tl));color:#fff;font-size:13px;font-weight:700;box-shadow:0 4px 16px rgba(79,126,248,.35);transition:all .2s;letter-spacing:.02em}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(79,126,248,.5)}
+.btn-secondary{width:100%;padding:10px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--bd2);color:var(--tx2);font-size:13px;font-weight:500;transition:all .2s}
+.btn-secondary:hover{background:rgba(255,255,255,.08);color:var(--tx)}
+.auth-switch{text-align:center;font-size:12px;color:var(--tx2);margin-top:16px}
+.auth-switch a{color:var(--a2);cursor:pointer;font-weight:600}
+.remember-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;font-size:12px}
+.check-wrap{display:flex;align-items:center;gap:7px;cursor:pointer}
+.check-box{width:16px;height:16px;border-radius:4px;border:1px solid var(--bd2);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-size:10px}
+.check-box.on{background:var(--a);border-color:var(--a)}
+.check-label{color:var(--tx2)}
+.forgot-link{color:var(--a2);cursor:pointer}
+.strength-bar{height:3px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-top:3px}
+.strength-fill{height:100%;border-radius:3px;transition:width .3s,background .3s;width:0}
+.strength-txt{font-size:9.5px;margin-top:3px;transition:color .3s}
+.avatar-pick{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
+.av-opt{width:34px;height:34px;border-radius:9px;border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:all .2s;background:rgba(255,255,255,.03)}
+.av-opt:hover{border-color:var(--a2)}
+.av-opt.sel{border-color:var(--a);background:rgba(79,126,248,.15);box-shadow:0 0 0 2px rgba(79,126,248,.2)}
+.toast-c{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:6px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:8px;padding:10px 15px;border-radius:10px;border:1px solid currentColor;backdrop-filter:blur(20px);font-size:11.5px;font-weight:600;animation:tI .3s ease;min-width:200px;max-width:320px}
+.toast.info{color:#7aa2fb;background:rgba(79,126,248,.18);border-color:rgba(79,126,248,.35)}
+.toast.warn{color:var(--warn);background:rgba(240,165,0,.18);border-color:rgba(240,165,0,.35)}
+.toast.err2{color:var(--danger);background:rgba(232,64,74,.18);border-color:rgba(232,64,74,.35)}
+.toast.ok{color:var(--safe);background:rgba(29,184,84,.15);border-color:rgba(29,184,84,.35)}
+@keyframes tI{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+#dashPage{flex-direction:column;min-height:100vh}
+.dash-nav{position:sticky;top:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:14px;background:rgba(4,7,14,.92);backdrop-filter:blur(22px);border-bottom:1px solid var(--bd)}
+.dash-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.dl-mk{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 0 14px rgba(79,126,248,.4)}
+.dl-nm{font-family:var(--dp);font-size:17px;font-weight:800;letter-spacing:-.02em}
+.dl-nm em{font-style:normal;color:var(--a2)}
+.dash-nav-r{display:flex;align-items:center;gap:9px}
+.user-pill{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:100px;border:1px solid var(--bd);background:rgba(255,255,255,.04)}
+.up-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+.up-name{font-size:11.5px;font-weight:600}.up-roll{font-family:var(--mn);font-size:8.5px;color:var(--tx2)}
+.logout-btn{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:8px;background:rgba(232,64,74,.1);border:1px solid rgba(232,64,74,.25);color:var(--danger);font-size:11.5px;font-weight:600;transition:all .2s}
+.logout-btn:hover{background:rgba(232,64,74,.18)}
+.dash-body{padding:32px 28px;flex:1}
+.dash-welcome{margin-bottom:26px}
+.dw-greeting{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tx2);margin-bottom:5px;font-family:var(--mn)}
+.dw-name{font-family:var(--dp);font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:5px}
+.dw-name span{color:var(--a2)}
+.dw-sub{font-size:12.5px;color:var(--tx2)}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.dstat{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:7px;position:relative;overflow:hidden;transition:border-color .2s}
+.dstat:hover{border-color:var(--bd2)}
+.dstat::after{content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,var(--sc,rgba(79,126,248,.15)),transparent 70%);pointer-events:none}
+.ds-icon{font-size:20px}.ds-val{font-family:var(--mn);font-size:22px;font-weight:700}
+.ds-label{font-size:10px;color:var(--tx2)}.ds-change{font-family:var(--mn);font-size:9px;color:var(--safe);margin-top:1px}
+.dash-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.dash-card-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:1px solid var(--bd)}
+.dch-title{font-family:var(--dp);font-size:14.5px;font-weight:700}.dch-sub{font-size:10px;color:var(--tx2);margin-top:2px}
+.dch-action{font-size:11px;color:var(--a2);cursor:pointer;padding:5px 12px;border-radius:7px;border:1px solid rgba(79,126,248,.25);background:rgba(79,126,248,.08);font-weight:600;transition:all .2s}
+.dch-action:hover{background:rgba(79,126,248,.16)}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+.exam-list{display:flex;flex-direction:column}
+.exam-item{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-bottom:1px solid var(--bd);gap:12px;transition:background .18s}
+.exam-item:last-child{border-bottom:none}
+.exam-item:hover{background:rgba(255,255,255,.02)}
+.ei-left{display:flex;align-items:center;gap:11px}
+.ei-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ei-title{font-size:12.5px;font-weight:600}.ei-meta{display:flex;align-items:center;gap:5px;margin-top:3px;font-size:9.5px;color:var(--tx2);flex-wrap:wrap}
+.ei-dot{width:3px;height:3px;border-radius:50%;background:var(--mu)}
+.ei-badge{font-size:8.5px;font-weight:600;padding:2px 7px;border-radius:100px;font-family:var(--dp);letter-spacing:.04em;text-transform:uppercase;border:1px solid currentColor}
+.start-btn{padding:7px 15px;border-radius:8px;background:linear-gradient(135deg,var(--a),var(--tl));color:#fff;font-size:10.5px;font-weight:700;box-shadow:0 3px 10px rgba(79,126,248,.3);transition:all .2s;white-space:nowrap;flex-shrink:0}
+.start-btn:hover{transform:translateY(-1px)}
+.profile-card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.pc-top{display:flex;align-items:center;gap:13px}
+.pc-av{width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;box-shadow:0 6px 16px rgba(79,126,248,.3)}
+.pc-name{font-family:var(--dp);font-size:15px;font-weight:700}.pc-roll{font-family:var(--mn);font-size:9.5px;color:var(--a2);margin-top:2px}
+.pc-rows{display:flex;flex-direction:column;gap:7px}
+.pc-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:7px 11px;background:rgba(255,255,255,.03);border-radius:7px;border:1px solid var(--bd)}
+.pc-k{color:var(--tx2)}.pc-v{font-family:var(--mn);font-size:10.5px;color:var(--tx)}
+.pc-v.a{color:var(--a2)}.pc-v.t{color:var(--tl)}
+.subject-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;padding:14px 20px 20px}
+.sub-tile{border-radius:9px;padding:12px 10px;display:flex;flex-direction:column;gap:7px;cursor:pointer;transition:all .2s;border:1px solid transparent}
+.sub-tile:hover{transform:translateY(-2px)}
+.st-icon{font-size:20px}.st-name{font-size:9.5px;font-weight:700;font-family:var(--dp);letter-spacing:.04em;text-transform:uppercase}
+.st-count{font-family:var(--mn);font-size:9px;opacity:.8}
+.st-bar{height:3px;background:rgba(255,255,255,.12);border-radius:100px;overflow:hidden;margin-top:2px}
+.st-fill{height:100%;border-radius:100px}
+#examPage{flex-direction:column;min-height:100vh}
+.nb{position:sticky;top:0;z-index:100;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:12px;background:rgba(4,7,14,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd)}
+.nb::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:var(--pg,0%);background:linear-gradient(90deg,var(--a),var(--tl));transition:width .5s ease;pointer-events:none}
+.nb-l,.nb-r{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nb-c{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+.logo2{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo2-mk{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:14px}
+.logo2-nm{font-family:var(--dp);font-size:16px;font-weight:800;letter-spacing:-.02em}
+.logo2-nm em{font-style:normal;color:var(--a2)}
+.nb-title{font-family:var(--dp);font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
+.nb-meta{display:flex;align-items:center;gap:6px;font-family:var(--mn);font-size:8px;color:var(--tx2)}
+.nb-meta .s{color:var(--mu)}
+.tc{display:flex;align-items:center;gap:5px;padding:4px 11px;border-radius:100px;border:1px solid currentColor;font-family:var(--mn);font-size:10px;font-weight:500;white-space:nowrap;transition:all .4s}
+.tc.safe{color:var(--safe);background:rgba(29,184,84,.08)}
+.tc.warning{color:var(--warn);background:rgba(240,165,0,.10)}
+.tc.critical{color:var(--danger);background:rgba(232,64,74,.10);animation:critP 1.2s ease-in-out infinite}
+@keyframes critP{0%,100%{box-shadow:0 0 0 0 rgba(232,64,74,.3)}50%{box-shadow:0 0 0 4px rgba(232,64,74,0)}}
+.submit-nb{display:flex;align-items:center;gap:5px;padding:6px 13px;background:linear-gradient(135deg,var(--a),var(--tl));border-radius:8px;color:#fff;font-size:11px;font-weight:700;box-shadow:0 3px 12px rgba(79,126,248,.35);transition:all .2s}
+.submit-nb:hover{transform:translateY(-1px)}
+.av-nb{display:flex;align-items:center;gap:6px;padding:3px 9px 3px 3px;border-radius:100px;border:1px solid var(--bd);background:rgba(255,255,255,.04)}
+.av-nb-c{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.av-nb-n{font-size:11px;font-weight:600}.av-nb-r{font-family:var(--mn);font-size:7.5px;color:var(--tx2)}
+.pw{position:relative;margin-right:40px}
+.pb{width:60px;height:4px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,var(--a),var(--tl));border-radius:100px;transition:width .5s}
+.pl{position:absolute;top:50%;right:-38px;transform:translateY(-50%);font-family:var(--mn);font-size:8px;color:var(--tx2);white-space:nowrap}
+.sub-tabs{display:flex;align-items:center;padding:0 20px;background:rgba(4,7,14,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none}
+.sub-tabs::-webkit-scrollbar{display:none}
+.stab{display:flex;align-items:center;gap:6px;padding:9px 15px;font-size:10.5px;font-weight:600;color:var(--tx2);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.02em;text-transform:uppercase;font-family:var(--dp)}
+.stab:hover{color:var(--tx)}
+.stab.active{color:var(--sc,var(--a));border-bottom-color:var(--sc,var(--a))}
+.stab .dot{width:7px;height:7px;border-radius:50%;background:var(--sc,var(--a))}
+.stab .cnt{font-family:var(--mn);font-size:8.5px;padding:1px 5px;border-radius:4px;background:rgba(255,255,255,.08)}
+.stab.active .cnt{background:var(--sc,var(--a));color:#fff}
+.layout{display:grid;grid-template-columns:215px 1fr 260px;min-height:calc(100vh - 98px);position:relative;z-index:1}
+.sl{background:var(--bg2);border-right:1px solid var(--bd);padding:14px 11px;display:flex;flex-direction:column;gap:13px;position:sticky;top:98px;height:calc(100vh - 98px);overflow-y:auto}
+.sl::-webkit-scrollbar{width:3px}.sl::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+.slt{font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2)}
+.sc-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:11px;display:flex;flex-direction:column;gap:8px}
+.sc-top{display:flex;align-items:center;gap:8px}
+.sc-av{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 4px 10px rgba(79,126,248,.3)}
+.sc-n{font-size:11.5px;font-weight:700}.sc-rn{font-family:var(--mn);font-size:8.5px;color:var(--a2)}
+.sc-rows{display:flex;flex-direction:column;gap:3px}
+.sc-row2{display:flex;justify-content:space-between;font-size:9px}
+.sc-k{color:var(--tx2)}.sc-v2{font-family:var(--mn);color:var(--tx);font-size:9px}
+.sub-prog{display:flex;flex-direction:column;gap:7px}
+.sp-row{display:flex;flex-direction:column;gap:2px}
+.sp-label{display:flex;justify-content:space-between;align-items:center;font-size:9px}
+.sp-name{font-weight:600}.sp-cnt{font-family:var(--mn);font-size:8px;color:var(--tx2)}
+.sp-bar{height:4px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden}
+.sp-fill{height:100%;border-radius:100px;transition:width .5s}
+.legend{display:flex;flex-direction:column;gap:4px}
+.leg-i{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--tx2)}
+.leg-d{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.leg-d.ans{background:var(--a)}.leg-d.cur{background:var(--tl);outline:2px solid var(--tl);outline-offset:2px}
+.leg-d.flg{background:var(--warn)}.leg-d.una{background:rgba(255,255,255,.07);border:1px solid var(--bd2)}
+.qg{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.qb{aspect-ratio:1;border-radius:5px;font-family:var(--mn);font-size:8.5px;font-weight:500;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--tx2);cursor:pointer;transition:all .18s;position:relative;line-height:1}
+.qb:hover{background:rgba(255,255,255,.09)}
+.qb.ans{background:rgba(79,126,248,.22);border-color:rgba(79,126,248,.4);color:var(--a2)}
+.qb.cur{background:rgba(15,184,164,.32);border-color:var(--tl);color:#fff;box-shadow:0 0 7px rgba(15,184,164,.4)}
+.qb.flg{background:rgba(240,165,0,.18);border-color:rgba(240,165,0,.4);color:var(--warn)}
+.qb.flg::after{content:'⚑';position:absolute;top:-2px;right:0;font-size:6px}
+.qb.ans.os{background:rgba(15,184,164,.22);border-color:rgba(15,184,164,.4);color:#0fb8a4}
+.qb.ans.js{background:rgba(232,200,72,.18);border-color:rgba(232,200,72,.4);color:#e8c848}
+.qb.ans.dsa{background:rgba(168,85,247,.2);border-color:rgba(168,85,247,.4);color:#a855f7}
+.qb.ans.ml{background:rgba(249,115,22,.2);border-color:rgba(249,115,22,.4);color:#f97316}
+.mini-grid-wrap{max-height:185px;overflow-y:auto}
+.mini-grid-wrap::-webkit-scrollbar{width:3px}.mini-grid-wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+.sts{display:flex;flex-direction:column;gap:5px}
+.sr2x{display:flex;justify-content:space-between;align-items:center;font-size:9.5px}
+.sk{color:var(--tx2)}.sv{font-family:var(--mn);font-weight:600;color:var(--tx)}
+.sv.g{color:var(--safe)}.sv.y{color:var(--warn)}.sv.r{color:var(--danger)}
+.main{padding:20px 26px;display:flex;flex-direction:column;gap:14px}
+.sub-header{display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r)}
+.sub-icon2{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sub-name-h{font-family:var(--dp);font-size:13.5px;font-weight:700}
+.sub-desc-h{font-size:10px;color:var(--tx2);margin-top:1px}
+.sub-badge-h{margin-left:auto;font-family:var(--mn);font-size:8.5px;padding:2px 8px;border-radius:100px;border:1px solid currentColor;opacity:.8}
+.qc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,.4);animation:cI .25s ease}
+@keyframes cI{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.qh{padding:12px 16px 9px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.qbadge{font-family:var(--mn);font-size:8px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;flex-shrink:0;border:1px solid currentColor;opacity:.9}
+.qtags{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.qtag{font-size:8px;font-weight:600;padding:2px 7px;border-radius:100px;border:1px solid var(--bd2);color:var(--tx2);font-family:var(--dp);letter-spacing:.04em;text-transform:uppercase}
+.qtag.easy{border-color:rgba(29,184,84,.3);color:var(--safe)}
+.qtag.medium{border-color:rgba(240,165,0,.3);color:var(--warn)}
+.qtag.hard{border-color:rgba(232,64,74,.3);color:var(--danger)}
+.fb{background:none;border:1px solid var(--bd);border-radius:6px;color:var(--tx2);font-size:10px;padding:3px 9px;transition:all .18s}
+.fb:hover,.fb.on{border-color:rgba(240,165,0,.5);color:var(--warn);background:rgba(240,165,0,.08)}
+.qbody{padding:18px 16px}
+.qt{font-family:var(--dp);font-size:14px;font-weight:600;line-height:1.65;color:var(--tx);margin-bottom:16px;letter-spacing:-.01em}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-radius:8px;border:1px solid var(--bd);background:rgba(255,255,255,.02);cursor:pointer;transition:all .2s;user-select:none}
+.opt:hover{border-color:rgba(79,126,248,.3);background:rgba(79,126,248,.05)}
+.opt.sel{border-color:var(--a);background:rgba(79,126,248,.12);box-shadow:0 0 0 1px rgba(79,126,248,.2)}
+.ol{width:23px;height:23px;border-radius:6px;flex-shrink:0;border:1px solid var(--bd2);color:var(--tx2);display:flex;align-items:center;justify-content:center;font-family:var(--mn);font-size:9px;font-weight:600;transition:all .2s}
+.opt.sel .ol{background:var(--a);border-color:var(--a);color:#fff}
+.ot{font-size:12px;line-height:1.55;padding-top:1px}
+.qf{padding:11px 16px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.nbbs{display:flex;gap:6px}
+.nb2{padding:6px 14px;border-radius:7px;font-size:10.5px;font-weight:500;border:1px solid var(--bd);background:rgba(255,255,255,.04);color:var(--tx2);transition:all .18s}
+.nb2:hover{background:rgba(255,255,255,.08);color:var(--tx)}
+.nb2:disabled{opacity:.3;cursor:not-allowed}
+.nb2.p{background:linear-gradient(135deg,var(--a),var(--tl));border:none;color:#fff;font-weight:700;box-shadow:0 3px 10px rgba(79,126,248,.3)}
+.nb2.p:hover{transform:translateY(-1px)}
+.cb{font-size:9.5px;color:var(--tx2);background:none;border:none;text-decoration:underline;text-underline-offset:3px}
+.qnav{display:flex;align-items:center;gap:5px}
+.qn-input{font-family:var(--mn);font-size:10.5px;background:rgba(255,255,255,.06);border:1px solid var(--bd2);border-radius:6px;color:var(--tx);padding:4px 7px;width:48px;text-align:center;outline:none}
+.qn-input:focus{border-color:var(--a)}
+.qn-go{padding:4px 9px;border-radius:6px;font-size:10px;font-weight:600;background:rgba(79,126,248,.18);border:1px solid rgba(79,126,248,.35);color:var(--a2)}
+.sr3{background:var(--bg2);border-left:1px solid var(--bd);padding:13px 11px;display:flex;flex-direction:column;gap:11px;position:sticky;top:98px;height:calc(100vh - 98px);overflow-y:auto}
+.sr3::-webkit-scrollbar{width:3px}.sr3::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+.tmc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 11px;display:flex;flex-direction:column;align-items:center;gap:9px;position:relative;overflow:hidden;transition:border-color .5s}
+.tmc::before{content:'';position:absolute;inset:-40px;background:radial-gradient(circle at 50% 50%,var(--tc,#1db854),transparent 65%);opacity:.05;pointer-events:none;z-index:0}
+.tmc>*{position:relative;z-index:1}
+.tmc.warning{border-color:rgba(240,165,0,.25)}
+.tmc.critical{border-color:rgba(232,64,74,.3);animation:tG 1.4s ease-in-out infinite alternate}
+@keyframes tG{from{box-shadow:none}to{box-shadow:0 0 18px rgba(232,64,74,.25)}}
+.tl2{font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2)}
+.trw{position:relative;width:88px;height:88px;display:flex;align-items:center;justify-content:center}
+.tr2{transform:rotate(-90deg);position:absolute;top:0;left:0}
+.rt{fill:none;stroke:rgba(255,255,255,.06);stroke-width:5}
+.rp{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .5s}
+.td{display:flex;align-items:center;gap:1px;font-family:var(--mn);font-size:20px;font-weight:700;letter-spacing:-1px;transition:color .5s}
+.db{display:flex;flex-direction:column;align-items:center;gap:1px}
+.dv{min-width:2ch;text-align:center}
+.ds3{font-family:var(--fn);font-size:6px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2)}
+.dsep{font-size:16px;font-weight:300;color:var(--mu);margin-bottom:5px;opacity:.5}
+.tb{font-size:8.5px;font-weight:600;padding:2px 9px;border-radius:100px;border:1px solid currentColor;opacity:.85}
+.tb.safe{color:var(--safe);background:rgba(29,184,84,.08)}
+.tb.warning{color:var(--warn);background:rgba(240,165,0,.10)}
+.tb.critical{color:var(--danger);background:rgba(232,64,74,.10)}
+.cam-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.cam-hdr{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;background:var(--sf2);border-bottom:1px solid var(--bd)}
+.cam-hdr-l{display:flex;align-items:center;gap:6px}
+.rec-wrap{display:flex;align-items:center;gap:4px}
+.rec-d{width:6px;height:6px;border-radius:50%;background:var(--danger);animation:recB 1s step-start infinite}
+@keyframes recB{50%{opacity:0}}
+.rec-l{font-family:var(--mn);font-size:8px;color:var(--danger);letter-spacing:.12em}
+.live-b{font-size:8px;font-weight:700;padding:2px 7px;border-radius:100px;border:1px solid rgba(29,184,84,.4);color:var(--safe);background:rgba(29,184,84,.1);animation:liveP 2s ease-in-out infinite}
+@keyframes liveP{0%,100%{box-shadow:0 0 0 0 rgba(29,184,84,.3)}50%{box-shadow:0 0 0 3px rgba(29,184,84,0)}}
+.cam-sname{font-family:var(--mn);font-size:8px;color:var(--tx2)}
+.cam-area{position:relative;background:#000;aspect-ratio:4/3;overflow:hidden}
+.cam-vid{width:100%;height:100%;object-fit:cover;display:block;transform:scaleX(-1)}
+.cam-scan{position:absolute;inset:0;pointer-events:none;z-index:2;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
+.cam-cors{position:absolute;inset:0;pointer-events:none;z-index:3}
+.co{position:absolute;width:11px;height:11px;border-color:rgba(15,184,164,.55);border-style:solid}
+.co.tl{top:6px;left:6px;border-width:2px 0 0 2px}.co.tr{top:6px;right:6px;border-width:2px 2px 0 0}
+.co.bl{bottom:6px;left:6px;border-width:0 0 2px 2px}.co.br{bottom:6px;right:6px;border-width:0 2px 2px 0}
+.face-box{position:absolute;top:14%;left:22%;width:56%;height:66%;border:1.5px solid rgba(15,184,164,.55);border-radius:4px;z-index:4;pointer-events:none;transition:border-color .3s}
+.face-box.warn{border-color:rgba(232,64,74,.7);animation:fW .5s ease-in-out infinite alternate}
+@keyframes fW{from{opacity:.5}to{opacity:1}}
+.face-lbl{position:absolute;top:-13px;left:0;font-family:var(--mn);font-size:7px;color:rgba(15,184,164,.9);text-transform:uppercase;letter-spacing:.08em;transition:color .3s}
+.face-box.warn .face-lbl{color:rgba(232,64,74,.9)}
+.cam-ph{position:absolute;inset:0;background:rgba(4,7,14,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:5}
+.cam-ph .ph-ico{font-size:26px;opacity:.5}.cam-ph .ph-txt{font-size:10px;color:var(--tx2);text-align:center;padding:0 12px}
+.cam-ph .ph-warn{font-size:9.5px;color:var(--warn);text-align:center;padding:0 10px}
+.cam-on-btn{background:linear-gradient(135deg,var(--a),var(--tl));color:#fff;font-family:var(--fn);font-size:10px;font-weight:700;border-radius:7px;padding:7px 16px;cursor:pointer;border:none;transition:opacity .2s}
+.cam-on-btn:hover{opacity:.85}
+.cam-status{font-family:var(--mn);font-size:8px;padding:3px 9px;border-radius:100px;border:1px solid currentColor;margin-top:2px}
+.cam-status.ok{color:var(--safe);background:rgba(29,184,84,.1);border-color:rgba(29,184,84,.3)}
+.cam-status.off2{color:var(--warn);background:rgba(240,165,0,.1);border-color:rgba(240,165,0,.3)}
+.cam-status.err3{color:var(--danger);background:rgba(232,64,74,.1);border-color:rgba(232,64,74,.3)}
+.cam-ctrls{display:flex;align-items:center;gap:5px;padding:6px 11px;background:var(--sf2);border-top:1px solid var(--bd)}
+.cam-btn{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;transition:background .18s}
+.cam-btn:hover{background:rgba(255,255,255,.09)}
+.cam-btn.off{background:rgba(232,64,74,.12);border-color:rgba(232,64,74,.3)}
+.cam-elapsed{font-family:var(--mn);font-size:8px;color:var(--tx2);margin-left:auto}
+.viol-strip{display:none;align-items:center;gap:6px;padding:5px 11px;background:rgba(232,64,74,.1);border-top:1px solid rgba(232,64,74,.2);font-size:10px;color:#f87171;font-weight:600;animation:vS .3s ease}
+@keyframes vS{from{opacity:0}to{opacity:1}}
+.score-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:11px 13px;display:flex;flex-direction:column;gap:9px}
+.score-t{font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2)}
+.score-big{display:flex;align-items:baseline;gap:4px;justify-content:center}
+.score-n{font-family:var(--mn);font-size:28px;font-weight:700;color:var(--a2)}
+.score-d{font-family:var(--mn);font-size:13px;color:var(--tx2)}
+.score-pct{font-family:var(--mn);font-size:10.5px;color:var(--tl);background:rgba(15,184,164,.1);border:1px solid rgba(15,184,164,.25);padding:2px 8px;border-radius:100px;text-align:center}
+.sub-scores{display:flex;flex-direction:column;gap:5px}
+.ss-row{display:flex;align-items:center;gap:6px;font-size:9.5px}
+.ss-dot{width:6px;height:6px;border-radius:2px;flex-shrink:0}
+.ss-name{flex:1;color:var(--tx2)}.ss-val{font-family:var(--mn);font-size:9px;color:var(--tx)}
+.ic{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:10px 11px;display:flex;flex-direction:column;gap:6px}
+.it{font-size:7.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tx2)}
+.ir{display:flex;justify-content:space-between;align-items:center;font-size:9.5px}
+.ik{color:var(--tx2)}.iv{font-family:var(--mn);color:var(--tx);font-size:9px}
+.iv.a{color:var(--a2)}.iv.t{color:var(--tl)}
+.ihr{height:1px;background:var(--bd)}
+.mov{position:fixed;inset:0;z-index:500;background:rgba(4,7,14,.92);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:16px}
+.mov.open{display:flex;animation:mF .25s ease}
+@keyframes mF{from{opacity:0}to{opacity:1}}
+.modal{background:var(--sf);border:1px solid rgba(255,255,255,.1);border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.75);padding:24px;max-width:440px;width:100%;animation:mS .3s cubic-bezier(.34,1.56,.64,1);max-height:90vh;overflow-y:auto}
+@keyframes mS{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.mi{font-size:34px;text-align:center;margin-bottom:7px}
+.mt{font-family:var(--dp);font-size:18px;font-weight:800;text-align:center;margin-bottom:5px}
+.ms{font-size:11.5px;color:var(--tx2);text-align:center;line-height:1.65;margin-bottom:12px}
+.mst{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:9px;padding:9px 12px;margin-bottom:13px}
+.mav{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--a),var(--tl));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.mname{font-size:12px;font-weight:700;color:var(--tx)}.mroll{font-family:var(--mn);font-size:9px;color:var(--tx2);margin-top:1px}
+.mstats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.mstat{background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:8px;padding:8px 4px;text-align:center}
+.msv{font-family:var(--mn);font-size:14px;font-weight:700;color:var(--tx)}
+.msk{font-size:8px;color:var(--tx2);margin-top:2px}
+.msub-scores{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.msub-item{display:flex;align-items:center;gap:6px;padding:6px 9px;background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:7px}
+.msub-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.msub-n{font-size:9.5px;color:var(--tx2);flex:1}.msub-v{font-family:var(--mn);font-size:9.5px;font-weight:600;color:var(--tx)}
+.mbtns{display:flex;gap:7px}
+.mc{flex:1;padding:9px;border-radius:8px;font-size:12px;font-weight:500;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--tx2)}
+.mcf{flex:2;padding:9px;border-radius:8px;font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--a),var(--tl));color:#fff;border:none;box-shadow:0 3px 10px rgba(79,126,248,.35);transition:all .2s}
+.mcf:hover{transform:translateY(-1px)}
+.viol-count{font-size:10px;color:var(--warn);font-family:var(--mn);text-align:center;margin-bottom:8px}
+.rp2{display:flex;flex-direction:column;align-items:center;gap:14px;padding:32px 20px;text-align:center}
+.rb{font-size:50px;animation:bP .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bP{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.rt2{font-family:var(--dp);font-size:23px;font-weight:800}
+.rs{font-size:12px;color:var(--tx2);max-width:340px;line-height:1.7}
+.rcs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:500px}
+.rca{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:12px 6px;text-align:center}
+.rv{font-family:var(--mn);font-size:21px;font-weight:700}.rk{font-size:9px;color:var(--tx2);margin-top:3px}
+.rsubs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%;max-width:560px}
+.rsub{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:11px 6px;text-align:center}
+.rsub-val{font-family:var(--mn);font-size:15px;font-weight:700}
+.rsub-name{font-size:8.5px;color:var(--tx2);margin-top:3px;font-family:var(--dp);font-weight:600}
+.back-dash-btn{padding:10px 24px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--tl));color:#fff;font-size:13px;font-weight:700;box-shadow:0 4px 16px rgba(79,126,248,.35);transition:all .2s}
+.back-dash-btn:hover{transform:translateY(-1px)}
+@media(max-width:1150px){.layout{grid-template-columns:195px 1fr 240px}.dash-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:960px){.auth-wrap{grid-template-columns:1fr}.auth-left{display:none}.layout{grid-template-columns:1fr}.sl,.sr3{display:none}.main{padding:16px}.dash-grid{grid-template-columns:1fr}.subject-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:580px){.pw,.submit-nb{display:none}.dash-stats{grid-template-columns:repeat(2,1fr)}.rcs{grid-template-columns:repeat(2,1fr)}.rsubs{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="page active" id="loginPage">
+  <div class="auth-wrap">
+    <div class="auth-left">
+      <div class="auth-brand">
+        <div class="brand-logo"><div class="brand-mk">🎓</div><span class="brand-nm">Exam<em>Flow</em></span></div>
+        <div class="bca-badge">🎓 BCA Programme · 2023–2026</div>
+        <div class="auth-tagline">Your gateway to academic excellence.</div>
+        <div class="auth-sub">Secure, proctored online examinations for BCA students. Complete 200-question assessment with real-time camera monitoring.</div>
+        <div class="auth-features">
+          <div class="af-item"><div class="af-icon" style="background:rgba(79,126,248,.15)">📊</div>200 MCQ across 5 subjects</div>
+          <div class="af-item"><div class="af-icon" style="background:rgba(15,184,164,.15)">📷</div>Live camera proctoring required</div>
+          <div class="af-item"><div class="af-icon" style="background:rgba(168,85,247,.15)">⏱</div>120-minute timed examination</div>
+          <div class="af-item"><div class="af-icon" style="background:rgba(249,115,22,.15)">📈</div>Live score tracking per subject</div>
+        </div>
+      </div>
+      <div class="auth-subjects">
+        <div class="as-label">Exam Subjects</div>
+        <div class="as-pills">
+          <span class="as-pill" style="color:var(--ds);border-color:rgba(79,126,248,.3)">Data Science</span>
+          <span class="as-pill" style="color:var(--os);border-color:rgba(15,184,164,.3)">OS</span>
+          <span class="as-pill" style="color:var(--js);border-color:rgba(232,200,72,.3)">JavaScript</span>
+          <span class="as-pill" style="color:var(--dsa);border-color:rgba(168,85,247,.3)">Data Structures</span>
+          <span class="as-pill" style="color:var(--ml);border-color:rgba(249,115,22,.3)">ML &amp; Algorithms</span>
+        </div>
+      </div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-form-title">Welcome back 👋</div>
+      <div class="auth-form-sub">Sign in to access your BCA 2023–2026 examination portal.</div>
+      <div class="form-group">
+        <label class="form-label">Roll Number / Email</label>
+        <input class="form-input" id="loginId" placeholder="e.g. 2320520034" type="text"/>
+        <div class="form-err" id="loginIdErr">Please enter your roll number or email</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="loginPwd" placeholder="Enter your password" type="password" onkeydown="if(event.key==='Enter')doLogin()"/>
+        <div class="form-err" id="loginPwdErr">Incorrect password</div>
+      </div>
+      <div class="remember-row">
+        <div class="check-wrap" onclick="toggleChk('remCk')"><div class="check-box on" id="remCk">✓</div><span class="check-label">Remember me</span></div>
+        <a class="forgot-link" onclick="toast('info','Password reset sent to your registered email')">Forgot password?</a>
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Sign In →</button>
+      <div class="form-divider"><div class="fd-line"></div><span class="fd-txt">OR</span><div class="fd-line"></div></div>
+      <button class="btn-secondary" onclick="quickLogin()">⚡ Demo Login — Ankith Reddy (BCA)</button>
+      <div class="auth-switch">New student? <a onclick="showPage('registerPage')">Create account</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER PAGE -->
+<div class="page" id="registerPage">
+  <div class="auth-wrap" style="max-width:940px">
+    <div class="auth-left">
+      <div class="auth-brand">
+        <div class="brand-logo"><div class="brand-mk">🎓</div><span class="brand-nm">Exam<em>Flow</em></span></div>
+        <div class="bca-badge">🎓 BCA Programme · 2023–2026</div>
+        <div class="auth-tagline">Join BCA 2023–2026.</div>
+        <div class="auth-sub">Register your student account for the Comprehensive MCQ Examination.</div>
+        <div class="auth-features">
+          <div class="af-item"><div class="af-icon" style="background:rgba(79,126,248,.15)">✅</div>Free account for enrolled students</div>
+          <div class="af-item"><div class="af-icon" style="background:rgba(15,184,164,.15)">🔒</div>Encrypted data — exam secured</div>
+          <div class="af-item"><div class="af-icon" style="background:rgba(168,85,247,.15)">📷</div>Camera required during exam</div>
+          <div class="af-item"><div class="af-icon" style="background:rgba(249,115,22,.15)">📊</div>Real-time analytics &amp; results</div>
+        </div>
+      </div>
+      <div class="auth-subjects" style="margin-top:auto;padding-top:24px;position:relative;z-index:1">
+        <div class="as-label">Batch Information</div>
+        <div style="font-size:11px;color:var(--tx2);line-height:1.9">Programme: BCA<br/>Batch: 2023–2026<br/>Duration: 3 Years<br/>Exam: Semester Assessment</div>
+      </div>
+    </div>
+    <div class="auth-right" style="padding-top:32px;padding-bottom:32px">
+      <div class="auth-form-title">Create Account</div>
+      <div class="auth-form-sub">Register as a BCA 2023–2026 student to access ExamFlow.</div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" id="regFirst" placeholder="Ankith" type="text"/></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" id="regLast" placeholder="Reddy" type="text"/></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Roll Number</label>
+        <input class="form-input" id="regRoll" placeholder="2320520034" type="text" maxlength="10"/>
+        <div class="form-err" id="regRollErr">Roll number must be 10 digits</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" id="regEmail" placeholder="ankith@college.edu" type="email"/>
+        <div class="form-err" id="regEmailErr">Enter a valid email address</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Programme</label>
+          <select class="form-select" id="regBranch">
+            <option value="BCA" selected>BCA</option>
+            <option value="BCA-DS">BCA (Data Science)</option>
+            <option value="BCA-AI">BCA (AI &amp; ML)</option>
+            <option value="BSc-CS">BSc Computer Science</option>
+            <option value="BSc-IT">BSc IT</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Batch</label>
+          <select class="form-select" id="regBatch">
+            <option value="2023-2026" selected>2023–2026</option>
+            <option value="2022-2025">2022–2025</option>
+            <option value="2024-2027">2024–2027</option>
+            <option value="2021-2024">2021–2024</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Choose Avatar</label>
+        <div class="avatar-pick" id="avPick">
+          <div class="av-opt sel" data-av="🧑‍💻" onclick="pickAv(this)">🧑‍💻</div>
+          <div class="av-opt" data-av="👨‍🎓" onclick="pickAv(this)">👨‍🎓</div>
+          <div class="av-opt" data-av="👩‍🎓" onclick="pickAv(this)">👩‍🎓</div>
+          <div class="av-opt" data-av="🧑‍🔬" onclick="pickAv(this)">🧑‍🔬</div>
+          <div class="av-opt" data-av="🦊" onclick="pickAv(this)">🦊</div>
+          <div class="av-opt" data-av="🚀" onclick="pickAv(this)">🚀</div>
+          <div class="av-opt" data-av="🦁" onclick="pickAv(this)">🦁</div>
+          <div class="av-opt" data-av="🎯" onclick="pickAv(this)">🎯</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="regPwd" placeholder="Min 8 characters" type="password" oninput="chkStrength(this.value)"/>
+        <div class="strength-bar"><div class="strength-fill" id="strF"></div></div>
+        <div class="strength-txt" id="strT" style="color:var(--tx2)"></div>
+        <div class="form-err" id="regPwdErr">Password must be at least 8 characters</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <input class="form-input" id="regPwd2" placeholder="Repeat password" type="password"/>
+        <div class="form-err" id="regPwd2Err">Passwords do not match</div>
+      </div>
+      <div class="check-wrap" style="margin-bottom:16px" onclick="toggleChk('termsCk')">
+        <div class="check-box" id="termsCk"></div>
+        <span class="check-label" style="font-size:11px">I agree to the <a style="color:var(--a2)">Terms of Service</a> and permit camera access during exams</span>
+      </div>
+      <button class="btn-primary" onclick="doRegister()">Create BCA Account →</button>
+      <div class="auth-switch" style="margin-top:12px">Already registered? <a onclick="showPage('loginPage')">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page" id="dashPage">
+  <nav class="dash-nav">
+    <a class="dash-logo" href="#"><div class="dl-mk">🎓</div><span class="dl-nm">Exam<em>Flow</em></span></a>
+    <div style="font-family:var(--mn);font-size:9px;color:var(--tl);background:rgba(15,184,164,.1);border:1px solid rgba(15,184,164,.25);padding:3px 10px;border-radius:100px;letter-spacing:.06em">BCA 2023–2026</div>
+    <div class="dash-nav-r">
+      <div class="user-pill"><div class="up-av" id="dashAv">AR</div><div><div class="up-name" id="dashName">Ankith Reddy</div><div class="up-roll" id="dashRoll">2320520034</div></div></div>
+      <button class="logout-btn" onclick="doLogout()">🚪 Logout</button>
+    </div>
+  </nav>
+  <div class="dash-body">
+    <div class="dash-welcome">
+      <div class="dw-greeting">🌟 BCA 2023–2026 Portal</div>
+      <div class="dw-name">Hello, <span id="welcomeName">Ankith</span>!</div>
+      <div class="dw-sub">Your comprehensive MCQ exam is ready. Camera proctoring is required — make sure your webcam is available.</div>
+    </div>
+    <div class="dash-stats">
+      <div class="dstat" style="--sc:rgba(79,126,248,.15)"><div class="ds-icon">📝</div><div class="ds-val">1</div><div class="ds-label">Exam Available</div><div class="ds-change">▲ Ready now</div></div>
+      <div class="dstat" style="--sc:rgba(15,184,164,.12)"><div class="ds-icon">🎯</div><div class="ds-val">200</div><div class="ds-label">Total Questions</div><div class="ds-change">▲ 5 subjects</div></div>
+      <div class="dstat" style="--sc:rgba(249,115,22,.12)"><div class="ds-icon">⏱</div><div class="ds-val">120</div><div class="ds-label">Minutes Allowed</div><div class="ds-change">2 hours</div></div>
+      <div class="dstat" style="--sc:rgba(232,64,74,.12)"><div class="ds-icon">📷</div><div class="ds-val">Live</div><div class="ds-label">Camera Proctoring</div><div class="ds-change">Required</div></div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-card-hdr"><div><div class="dch-title">Available Exams</div><div class="dch-sub">Camera access required to start</div></div></div>
+        <div class="exam-list">
+          <div class="exam-item">
+            <div class="ei-left">
+              <div class="ei-icon" style="background:linear-gradient(135deg,rgba(79,126,248,.2),rgba(15,184,164,.15))">📋</div>
+              <div>
+                <div class="ei-title">BCA Comprehensive MCQ Exam</div>
+                <div class="ei-meta">
+                  <span>200 Questions</span><span class="ei-dot"></span><span>5 Subjects</span><span class="ei-dot"></span><span>120 min</span><span class="ei-dot"></span>
+                  <span class="ei-badge" style="color:var(--safe);border-color:rgba(29,184,84,.3)">Available</span>
+                  <span class="ei-badge" style="color:var(--warn);border-color:rgba(240,165,0,.3)">📷 Camera</span>
+                </div>
+              </div>
+            </div>
+            <button class="start-btn" onclick="startExam()">Start →</button>
+          </div>
+          <div class="exam-item" style="opacity:.45">
+            <div class="ei-left">
+              <div class="ei-icon" style="background:rgba(255,255,255,.05)">🔒</div>
+              <div>
+                <div class="ei-title">Mock Test Series — Session 2</div>
+                <div class="ei-meta"><span>100 Questions</span><span class="ei-dot"></span><span>60 min</span><span class="ei-dot"></span><span class="ei-badge" style="color:var(--tx2);border-color:var(--bd2)">Locked</span></div>
+              </div>
+            </div>
+            <button class="start-btn" style="opacity:.35;cursor:not-allowed" disabled>Locked</button>
+          </div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-hdr"><div><div class="dch-title">Student Profile</div><div class="dch-sub">BCA 2023–2026 enrollment</div></div></div>
+        <div class="profile-card">
+          <div class="pc-top"><div class="pc-av" id="pcAv">AR</div><div><div class="pc-name" id="pcName">Ankith Reddy</div><div class="pc-roll" id="pcRoll">2320520034</div></div></div>
+          <div class="pc-rows">
+            <div class="pc-row"><span class="pc-k">Programme</span><span class="pc-v t" id="pcBranch">BCA</span></div>
+            <div class="pc-row"><span class="pc-k">Batch</span><span class="pc-v" id="pcBatch">2023–2026</span></div>
+            <div class="pc-row"><span class="pc-k">Email</span><span class="pc-v a" id="pcEmail">—</span></div>
+            <div class="pc-row"><span class="pc-k">Camera</span><span class="pc-v" style="color:var(--warn)">Required ⚠</span></div>
+            <div class="pc-row"><span class="pc-k">Status</span><span class="pc-v" style="color:var(--safe)">Active ✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-hdr"><div><div class="dch-title">Exam Subjects Overview</div><div class="dch-sub">BCA 2023–2026 · 40 questions per subject</div></div><button class="dch-action" onclick="startExam()">Start Exam →</button></div>
+      <div class="subject-grid">
+        <div class="sub-tile" style="background:rgba(79,126,248,.1);border-color:rgba(79,126,248,.2)"><div class="st-icon">📊</div><div class="st-name" style="color:var(--ds)">Data Science</div><div class="st-count" style="color:var(--ds)">40 MCQs</div><div class="st-bar"><div class="st-fill" style="width:82%;background:var(--ds)"></div></div></div>
+        <div class="sub-tile" style="background:rgba(15,184,164,.08);border-color:rgba(15,184,164,.2)"><div class="st-icon">🖥️</div><div class="st-name" style="color:var(--os)">Oper. Systems</div><div class="st-count" style="color:var(--os)">40 MCQs</div><div class="st-bar"><div class="st-fill" style="width:76%;background:var(--os)"></div></div></div>
+        <div class="sub-tile" style="background:rgba(232,200,72,.07);border-color:rgba(232,200,72,.2)"><div class="st-icon">⚡</div><div class="st-name" style="color:var(--js)">JavaScript</div><div class="st-count" style="color:var(--js)">40 MCQs</div><div class="st-bar"><div class="st-fill" style="width:70%;background:var(--js)"></div></div></div>
+        <div class="sub-tile" style="background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.2)"><div class="st-icon">🌳</div><div class="st-name" style="color:var(--dsa)">Data Structures</div><div class="st-count" style="color:var(--dsa)">40 MCQs</div><div class="st-bar"><div class="st-fill" style="width:80%;background:var(--dsa)"></div></div></div>
+        <div class="sub-tile" style="background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.2)"><div class="st-icon">🤖</div><div class="st-name" style="color:var(--ml)">ML &amp; Algorithms</div><div class="st-count" style="color:var(--ml)">40 MCQs</div><div class="st-bar"><div class="st-fill" style="width:72%;background:var(--ml)"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAM PAGE -->
+<div class="page" id="examPage">
+  <nav class="nb" id="examNb" style="--pg:0%">
+    <div class="nb-l"><a class="logo2" href="#"><div class="logo2-mk">🎓</div><span class="logo2-nm">Exam<em>Flow</em></span></a></div>
+    <div class="nb-c">
+      <div class="nb-title">BCA Comprehensive MCQ · 2023–2026</div>
+      <div class="nb-meta"><span>Q <span id="nCQ">1</span><span class="s">/</span>200</span><span class="s">·</span><span><span id="nAns">0</span> answered</span><span class="s">·</span><span id="nbStudent">Ankith Reddy · 2320520034</span></div>
+    </div>
+    <div class="nb-r">
+      <div class="pw"><div class="pb"><div class="pf" id="nP" style="width:0%"></div></div><span class="pl" id="nPL">0/200</span></div>
+      <div class="tc safe" id="nChip"><span id="nTI">⏱</span><span id="nTD">120:00</span></div>
+      <button class="submit-nb" onclick="oM()">✓ Submit</button>
+      <div class="av-nb"><div class="av-nb-c" id="examNbAv">AR</div><div><div class="av-nb-n" id="examNbName">Ankith</div><div class="av-nb-r" id="examNbRoll">2320520034</div></div></div>
+    </div>
+  </nav>
+  <div class="sub-tabs" id="subTabs">
+    <div class="stab active" style="--sc:var(--ds)" onclick="goSub(0)" id="tab0"><span class="dot"></span>Data Science<span class="cnt" id="tc0">0/40</span></div>
+    <div class="stab" style="--sc:var(--os)" onclick="goSub(1)" id="tab1"><span class="dot" style="background:var(--os)"></span>Operating Systems<span class="cnt" id="tc1">0/40</span></div>
+    <div class="stab" style="--sc:var(--js)" onclick="goSub(2)" id="tab2"><span class="dot" style="background:var(--js)"></span>JavaScript<span class="cnt" id="tc2">0/40</span></div>
+    <div class="stab" style="--sc:var(--dsa)" onclick="goSub(3)" id="tab3"><span class="dot" style="background:var(--dsa)"></span>Data Structures<span class="cnt" id="tc3">0/40</span></div>
+    <div class="stab" style="--sc:var(--ml)" onclick="goSub(4)" id="tab4"><span class="dot" style="background:var(--ml)"></span>ML &amp; Algorithms<span class="cnt" id="tc4">0/40</span></div>
+  </div>
+  <div class="layout">
+    <aside class="sl">
+      <div class="sc-card">
+        <div class="sc-top"><div class="sc-av" id="examScAv">AR</div><div><div class="sc-n" id="examScName">Ankith Reddy</div><div class="sc-rn" id="examScRoll">2320520034</div></div></div>
+        <div class="sc-rows">
+          <div class="sc-row2"><span class="sc-k">Programme</span><span class="sc-v2">BCA</span></div>
+          <div class="sc-row2"><span class="sc-k">Batch</span><span class="sc-v2" id="examScBatch">2023–2026</span></div>
+          <div class="sc-row2"><span class="sc-k">Total Q</span><span class="sc-v2">200 MCQ</span></div>
+        </div>
+      </div>
+      <div class="slt">Subject Progress</div>
+      <div class="sub-prog">
+        <div class="sp-row"><div class="sp-label"><span class="sp-name" style="color:var(--ds)">Data Science</span><span class="sp-cnt" id="spDS">0/40</span></div><div class="sp-bar"><div class="sp-fill" id="sfDS" style="width:0%;background:var(--ds)"></div></div></div>
+        <div class="sp-row"><div class="sp-label"><span class="sp-name" style="color:var(--os)">Op. Systems</span><span class="sp-cnt" id="spOS">0/40</span></div><div class="sp-bar"><div class="sp-fill" id="sfOS" style="width:0%;background:var(--os)"></div></div></div>
+        <div class="sp-row"><div class="sp-label"><span class="sp-name" style="color:var(--js)">JavaScript</span><span class="sp-cnt" id="spJS">0/40</span></div><div class="sp-bar"><div class="sp-fill" id="sfJS" style="width:0%;background:var(--js)"></div></div></div>
+        <div class="sp-row"><div class="sp-label"><span class="sp-name" style="color:var(--dsa)">Data Structures</span><span class="sp-cnt" id="spDSA">0/40</span></div><div class="sp-bar"><div class="sp-fill" id="sfDSA" style="width:0%;background:var(--dsa)"></div></div></div>
+        <div class="sp-row"><div class="sp-label"><span class="sp-name" style="color:var(--ml)">ML &amp; Algo</span><span class="sp-cnt" id="spML">0/40</span></div><div class="sp-bar"><div class="sp-fill" id="sfML" style="width:0%;background:var(--ml)"></div></div></div>
+      </div>
+      <div class="slt">Legend</div>
+      <div class="legend">
+        <div class="leg-i"><span class="leg-d ans"></span>Answered</div>
+        <div class="leg-i"><span class="leg-d cur"></span>Current</div>
+        <div class="leg-i"><span class="leg-d flg"></span>Flagged</div>
+        <div class="leg-i"><span class="leg-d una"></span>Unanswered</div>
+      </div>
+      <div class="slt">Navigator</div>
+      <div class="mini-grid-wrap"><div class="qg" id="qG"></div></div>
+      <div style="height:1px;background:var(--bd)"></div>
+      <div class="sts">
+        <div class="slt">Summary</div>
+        <div class="sr2x"><span class="sk">Total</span><span class="sv">200</span></div>
+        <div class="sr2x"><span class="sk">Answered</span><span class="sv g" id="stA">0</span></div>
+        <div class="sr2x"><span class="sk">Flagged</span><span class="sv y" id="stF">0</span></div>
+        <div class="sr2x"><span class="sk">Remaining</span><span class="sv r" id="stR">200</span></div>
+      </div>
+    </aside>
+    <main class="main" id="mainArea">
+      <div class="sub-header">
+        <div class="sub-icon2" id="subIcon">📊</div>
+        <div><div class="sub-name-h" id="subNameMain" style="color:var(--ds)">Data Science</div><div class="sub-desc-h" id="subDesc">Statistics · Pandas · NumPy · Visualization · Probability</div></div>
+        <div class="sub-badge-h" id="subBadge" style="color:var(--ds);border-color:rgba(79,126,248,.3)">Q 1–40</div>
+      </div>
+      <div class="qc" id="qC">
+        <div class="qh">
+          <span class="qbadge" id="qBadge" style="color:var(--ds);border-color:rgba(79,126,248,.3)">Q1</span>
+          <div class="qtags"><span class="qtag medium" id="qDiff">Medium</span><span class="qtag" id="qTopic">Topic</span><span class="qtag">1 mark</span></div>
+          <button class="fb" id="fBtn" onclick="tFlag()">⚑ Flag</button>
+        </div>
+        <div class="qbody"><div class="qt" id="qT"></div><div class="opts" id="oList"></div></div>
+        <div class="qf">
+          <div class="nbbs"><button class="nb2" id="pBtn" onclick="prevQ()" disabled>← Prev</button><button class="nb2 p" id="nBtn" onclick="nextQ()">Next →</button></div>
+          <div class="qnav"><input class="qn-input" id="qnI" type="number" min="1" max="200" placeholder="Go#"/><button class="qn-go" onclick="goQ()">Go</button></div>
+          <button class="cb" onclick="cAns()">Clear</button>
+        </div>
+      </div>
+    </main>
+    <aside class="sr3">
+      <div class="tmc safe" id="tC">
+        <div class="tl2">Time Remaining</div>
+        <div class="trw">
+          <svg class="tr2" width="88" height="88" viewBox="0 0 88 88">
+            <circle class="rt" cx="44" cy="44" r="37"/>
+            <circle class="rp" id="rP" cx="44" cy="44" r="37" stroke="#1db854" stroke-dasharray="232.48" stroke-dashoffset="0"/>
+          </svg>
+          <div class="td" id="tDig" style="color:#1db854">
+            <span class="db"><span class="dv" id="tM">120</span><span class="ds3">min</span></span>
+            <span class="dsep">:</span>
+            <span class="db"><span class="dv" id="tS">00</span><span class="ds3">sec</span></span>
+          </div>
+        </div>
+        <div class="tb safe" id="tB">In Progress</div>
+      </div>
+      <div class="cam-card">
+        <div class="cam-hdr">
+          <div class="cam-hdr-l">
+            <div class="rec-wrap" id="recW" style="display:none"><div class="rec-d"></div><span class="rec-l">REC</span></div>
+            <span class="live-b" id="liveB" style="display:none">● LIVE</span>
+          </div>
+          <span class="cam-sname" id="camSname">Ankith · 2320520034</span>
+        </div>
+        <div class="cam-area">
+          <video id="camVid" class="cam-vid" autoplay playsinline muted style="display:none"></video>
+          <div class="cam-scan"></div>
+          <div class="cam-cors"><div class="co tl"></div><div class="co tr"></div><div class="co bl"></div><div class="co br"></div></div>
+          <div class="face-box" id="faceBox" style="display:none"><span class="face-lbl" id="faceLbl">Face Detected ✓</span></div>
+          <div class="cam-ph" id="camPh">
+            <div class="ph-ico">📷</div>
+            <div class="ph-txt">Camera required for proctoring</div>
+            <div class="ph-warn">⚠ Violation if not connected</div>
+            <button class="cam-on-btn" onclick="startCam()">Connect Camera</button>
+          </div>
+        </div>
+        <div class="cam-ctrls">
+          <button class="cam-btn" id="muteBtn" onclick="toggleMute()" title="Mute/Unmute">🎙️</button>
+          <button class="cam-btn" id="camBtn" onclick="toggleCam()" title="Camera on/off">🎥</button>
+          <div class="cam-status off2" id="camStatus">Not Connected</div>
+          <span class="cam-elapsed" id="camElapsed" style="display:none">00:00</span>
+        </div>
+        <div class="viol-strip" id="violStrip"><span>🚨</span><span id="violMsg">Violation detected</span></div>
+      </div>
+      <div class="score-card">
+        <div class="score-t">Live Score Tracker</div>
+        <div class="score-big"><span class="score-n" id="liveScore">0</span><span class="score-d">/200</span></div>
+        <div class="score-pct" id="livePct">0% Complete</div>
+        <div class="sub-scores">
+          <div class="ss-row"><div class="ss-dot" style="background:var(--ds)"></div><span class="ss-name">Data Science</span><span class="ss-val" id="ssDS">0/40</span></div>
+          <div class="ss-row"><div class="ss-dot" style="background:var(--os)"></div><span class="ss-name">OS</span><span class="ss-val" id="ssOS">0/40</span></div>
+          <div class="ss-row"><div class="ss-dot" style="background:var(--js)"></div><span class="ss-name">JavaScript</span><span class="ss-val" id="ssJS">0/40</span></div>
+          <div class="ss-row"><div class="ss-dot" style="background:var(--dsa)"></div><span class="ss-name">Data Structures</span><span class="ss-val" id="ssDSA">0/40</span></div>
+          <div class="ss-row"><div class="ss-dot" style="background:var(--ml)"></div><span class="ss-name">ML &amp; Algorithms</span><span class="ss-val" id="ssML">0/40</span></div>
+        </div>
+      </div>
+      <div class="ic">
+        <div class="it">Exam Details</div>
+        <div class="ir"><span class="ik">Student</span><span class="iv t" id="examInfoName">Ankith Reddy</span></div><div class="ihr"></div>
+        <div class="ir"><span class="ik">Roll No.</span><span class="iv a" id="examInfoRoll">2320520034</span></div><div class="ihr"></div>
+        <div class="ir"><span class="ik">Programme</span><span class="iv">BCA</span></div><div class="ihr"></div>
+        <div class="ir"><span class="ik">Batch</span><span class="iv">2023–2026</span></div><div class="ihr"></div>
+        <div class="ir"><span class="ik">Total Q</span><span class="iv">200</span></div><div class="ihr"></div>
+        <div class="ir"><span class="ik">Duration</span><span class="iv">120 min</span></div><div class="ihr"></div>
+        <div class="ir"><span class="ik">Passing</span><span class="iv">100/200</span></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div class="mov" id="modal">
+  <div class="modal">
+    <div class="mi">📤</div>
+    <div class="mt">Submit Examination?</div>
+    <div class="ms">Submitting all 200 answers. This cannot be undone.</div>
+    <div class="mst">
+      <div class="mav" id="modalAv">AR</div>
+      <div><div class="mname" id="modalName">Ankith Reddy</div><div class="mroll" id="modalRoll">Roll No. 2320520034 · BCA 2023–2026</div></div>
+    </div>
+    <div class="mstats">
+      <div class="mstat"><div class="msv" id="msA">0</div><div class="msk">Answered</div></div>
+      <div class="mstat"><div class="msv" id="msF" style="color:var(--warn)">0</div><div class="msk">Flagged</div></div>
+      <div class="mstat"><div class="msv" id="msU" style="color:var(--danger)">200</div><div class="msk">Unanswered</div></div>
+      <div class="mstat"><div class="msv" id="msT" style="color:var(--tl)">—</div><div class="msk">Time Left</div></div>
+    </div>
+    <div class="viol-count" id="violCountTxt" style="display:none"></div>
+    <div class="slt" style="margin-bottom:7px">Subject Breakdown</div>
+    <div class="msub-scores">
+      <div class="msub-item"><div class="msub-dot" style="background:var(--ds)"></div><span class="msub-n">Data Science</span><span class="msub-v" id="mDS">0/40</span></div>
+      <div class="msub-item"><div class="msub-dot" style="background:var(--os)"></div><span class="msub-n">OS</span><span class="msub-v" id="mOS">0/40</span></div>
+      <div class="msub-item"><div class="msub-dot" style="background:var(--js)"></div><span class="msub-n">JavaScript</span><span class="msub-v" id="mJS">0/40</span></div>
+      <div class="msub-item"><div class="msub-dot" style="background:var(--dsa)"></div><span class="msub-n">Data Structures</span><span class="msub-v" id="mDSA">0/40</span></div>
+      <div class="msub-item"><div class="msub-dot" style="background:var(--ml)"></div><span class="msub-n">ML &amp; Algo</span><span class="msub-v" id="mML">0/40</span></div>
+    </div>
+    <div class="mbtns"><button class="mc" onclick="cM()">Go Back</button><button class="mcf" onclick="cSub()">Submit All 200 →</button></div>
+  </div>
+</div>
+
+<div class="toast-c" id="toastC"></div>
+
+<script>
+const STORE={
+  get users(){return JSON.parse(localStorage.getItem('ef_users')||JSON.stringify([{roll:'2320520034',email:'ankith@college.edu',password:'ankith123',first:'Ankith',last:'Reddy',branch:'BCA',batch:'2023-2026',avatar:'🧑‍💻'}]))},
+  save(u){const arr=this.users;arr.push(u);localStorage.setItem('ef_users',JSON.stringify(arr))},
+  find(id){return this.users.find(u=>u.roll===id||u.email===id)},
+};
+let CU=null,termsOn=false,selAv='🧑‍💻',violCount=0;
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function toggleChk(id){const el=document.getElementById(id);el.classList.toggle('on');el.textContent=el.classList.contains('on')?'✓':'';if(id==='termsCk')termsOn=el.classList.contains('on')}
+function pickAv(el){document.querySelectorAll('.av-opt').forEach(a=>a.classList.remove('sel'));el.classList.add('sel');selAv=el.dataset.av}
+function chkStrength(p){
+  const f=document.getElementById('strF'),t=document.getElementById('strT');
+  if(!p){f.style.width='0';t.textContent='';return}
+  let s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[A-Z]/.test(p))s++;if(/[0-9]/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;
+  const L=[['0%','var(--danger)',''],['20%','var(--danger)','Weak'],['40%','var(--warn)','Fair'],['60%','var(--warn)','Good'],['80%','var(--tl)','Strong'],['100%','var(--safe)','Very Strong']];
+  const l=L[Math.min(s,5)];f.style.width=l[0];f.style.background=l[1];t.style.color=l[1];t.textContent=l[2];
+}
+function shErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';if(e.previousElementSibling)e.previousElementSibling.classList.add('err')}
+function clErr(id){const e=document.getElementById(id);if(e){e.style.display='none';if(e.previousElementSibling)e.previousElementSibling.classList.remove('err')}}
+function doLogin(){
+  const id=document.getElementById('loginId').value.trim();
+  const pw=document.getElementById('loginPwd').value;
+  clErr('loginIdErr');clErr('loginPwdErr');
+  if(!id){shErr('loginIdErr','Please enter your roll number or email');return}
+  if(!pw){shErr('loginPwdErr','Please enter your password');return}
+  const u=STORE.find(id);
+  if(!u||u.password!==pw){shErr('loginPwdErr','Invalid credentials. Try 2320520034 / ankith123');return}
+  loginOk(u);
+}
+function quickLogin(){const u=STORE.find('2320520034');if(u)loginOk(u)}
+function loginOk(u){CU=u;fillDash(u);toast('ok','Welcome back, '+u.first+'! 🎓');showPage('dashPage')}
+function fillDash(u){
+  const ini=(u.first[0]+(u.last?u.last[0]:'')).toUpperCase();
+  const av=u.avatar||ini;
+  const batch=(u.batch||'2023-2026').replace('-','–');
+  ['dashAv','pcAv','examNbAv','examScAv','modalAv'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=av});
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  set('dashName',u.first+' '+u.last);set('dashRoll',u.roll);set('welcomeName',u.first);
+  set('pcName',u.first+' '+u.last);set('pcRoll',u.roll);set('pcBranch',u.branch||'BCA');
+  set('pcBatch',batch);set('pcEmail',u.email||'—');
+  set('examNbName',u.first);set('examNbRoll',u.roll);
+  set('examScName',u.first+' '+u.last);set('examScRoll',u.roll);set('examScBatch',batch);
+  set('examInfoName',u.first+' '+u.last);set('examInfoRoll',u.roll);
+  set('nbStudent',u.first+' '+u.last+' · '+u.roll);
+  set('modalName',u.first+' '+u.last);
+  set('modalRoll','Roll No. '+u.roll+' · '+(u.branch||'BCA')+' '+batch);
+  set('camSname',u.first+' · '+u.roll);
+}
+function doRegister(){
+  const first=document.getElementById('regFirst').value.trim();
+  const last=document.getElementById('regLast').value.trim();
+  const roll=document.getElementById('regRoll').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const branch=document.getElementById('regBranch').value;
+  const batch=document.getElementById('regBatch').value;
+  const pw=document.getElementById('regPwd').value;
+  const pw2=document.getElementById('regPwd2').value;
+  ['regRollErr','regEmailErr','regPwdErr','regPwd2Err'].forEach(clErr);
+  let ok=true;
+  if(!/^\d{10}$/.test(roll)){shErr('regRollErr','Roll number must be exactly 10 digits');ok=false}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){shErr('regEmailErr','Enter a valid email address');ok=false}
+  if(pw.length<8){shErr('regPwdErr','Password must be at least 8 characters');ok=false}
+  if(pw!==pw2){shErr('regPwd2Err','Passwords do not match');ok=false}
+  if(!termsOn){toast('warn','Please accept Terms & camera permission');ok=false}
+  if(!ok)return;
+  if(STORE.find(roll)){shErr('regRollErr','Roll number already registered');return}
+  const u={roll,email,password:pw,first,last,branch:branch||'BCA',batch:batch||'2023-2026',avatar:selAv};
+  STORE.save(u);loginOk(u);toast('ok','Account created! Welcome, '+first+'! 🎓');
+}
+function doLogout(){CU=null;stopCam();toast('info','Logged out. See you soon!');setTimeout(()=>showPage('loginPage'),700)}
+function startExam(){if(!CU){showPage('loginPage');return}resetExam();showPage('examPage');toast('info','BCA Exam started! 200Q · 120 min. Connect camera to begin.')}
+
+let camStream=null,camMuted=false,camOff=false,camSec=0,camInterval=null;
+async function startCam(){
+  try{
+    camStream=await navigator.mediaDevices.getUserMedia({video:{width:320,height:240,facingMode:'user'},audio:true});
+    const v=document.getElementById('camVid');v.srcObject=camStream;v.style.display='block';
+    document.getElementById('camPh').style.display='none';
+    document.getElementById('recW').style.display='flex';
+    document.getElementById('liveB').style.display='';
+    document.getElementById('faceBox').style.display='block';
+    document.getElementById('camElapsed').style.display='';
+    document.getElementById('camStatus').textContent='Live ●';
+    document.getElementById('camStatus').className='cam-status ok';
+    camInterval=setInterval(()=>{camSec++;const m=Math.floor(camSec/60),s=camSec%60;document.getElementById('camElapsed').textContent=pad(m)+':'+pad(s)},1000);
+    toast('ok','📷 Camera connected! Proctoring is now active.');
+  }catch(e){
+    document.getElementById('camStatus').textContent='Access Denied';
+    document.getElementById('camStatus').className='cam-status err3';
+    toast('err2','📵 Camera access denied. Please allow camera access in your browser.');
+  }
+}
+function stopCam(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}if(camInterval){clearInterval(camInterval);camInterval=null}}
+function toggleMute(){camMuted=!camMuted;if(camStream)camStream.getAudioTracks().forEach(t=>t.enabled=!camMuted);const b=document.getElementById('muteBtn');b.textContent=camMuted?'🔇':'🎙️';b.className='cam-btn'+(camMuted?' off':'');if(camMuted)logViol('Microphone muted')}
+function toggleCam(){
+  camOff=!camOff;if(camStream)camStream.getVideoTracks().forEach(t=>t.enabled=!camOff);
+  document.getElementById('camVid').style.display=camOff?'none':'block';
+  document.getElementById('faceBox').style.display=camOff?'none':'block';
+  const b=document.getElementById('camBtn');b.textContent=camOff?'📷':'🎥';b.className='cam-btn'+(camOff?' off':'');
+  if(camOff){document.getElementById('camStatus').textContent='Camera Off';document.getElementById('camStatus').className='cam-status off2';logViol('Camera turned off');}
+  else{document.getElementById('camStatus').textContent='Live ●';document.getElementById('camStatus').className='cam-status ok';}
+}
+function logViol(msg){violCount++;const s=document.getElementById('violStrip');document.getElementById('violMsg').textContent=msg+' (Violation #'+violCount+')';s.style.display='flex';setTimeout(()=>s.style.display='none',5000);toast('warn','⚠ Proctoring: '+msg)}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&document.getElementById('examPage').classList.contains('active'))logViol('Tab switch detected')});
+
+const SUBS=[
+  {name:'Data Science',key:'ds',color:'var(--ds)',icon:'📊',desc:'Statistics · Pandas · NumPy · Visualization · Probability',range:'Q 1–40'},
+  {name:'Operating Systems',key:'os',color:'var(--os)',icon:'🖥️',desc:'Processes · Memory · Scheduling · File Systems · Concurrency',range:'Q 41–80'},
+  {name:'JavaScript',key:'js',color:'var(--js)',icon:'⚡',desc:'ES6+ · DOM · Async · Closures · Prototypes · Event Loop',range:'Q 81–120'},
+  {name:'Data Structures',key:'dsa',color:'var(--dsa)',icon:'🌳',desc:'Arrays · Trees · Graphs · Hashing · Stacks · Queues · Heaps',range:'Q 121–160'},
+  {name:'ML & Algorithms',key:'ml',color:'var(--ml)',icon:'🤖',desc:'Supervised · Unsupervised · Neural Networks · Sorting · DP',range:'Q 161–200'},
+];
+const QS=[
+{s:0,t:'What does a p-value less than 0.05 typically indicate?',sub:'Statistics',diff:'medium',o:['Accept null hypothesis','Reject null hypothesis','No conclusion','Data is invalid'],a:1},
+{s:0,t:'Which Pandas function reads a CSV file?',sub:'Pandas',diff:'easy',o:['pd.load_csv()','pd.read_csv()','pd.import_csv()','pd.open_csv()'],a:1},
+{s:0,t:'What is the IQR (Interquartile Range)?',sub:'Statistics',diff:'easy',o:['Q3-Q1','Q2-Q1','Q4-Q2','Mean-Median'],a:0},
+{s:0,t:'Which NumPy function creates an array of zeros?',sub:'NumPy',diff:'easy',o:['np.empty()','np.zeros()','np.null()','np.blank()'],a:1},
+{s:0,t:'What % of data falls within 2 standard deviations in a normal distribution?',sub:'Statistics',diff:'medium',o:['68%','95%','99.7%','90%'],a:1},
+{s:0,t:'What does Pandas groupby() do?',sub:'Pandas',diff:'easy',o:['Sorts data','Groups rows by column values','Filters data','Merges DataFrames'],a:1},
+{s:0,t:'Which central tendency measure is most affected by outliers?',sub:'Statistics',diff:'easy',o:['Median','Mode','Mean','IQR'],a:2},
+{s:0,t:'What is the purpose of data normalization?',sub:'Preprocessing',diff:'medium',o:['Remove duplicates','Scale features to standard range','Fill missing values','Encode categories'],a:1},
+{s:0,t:'Which Python library is primarily used for data visualization?',sub:'Visualization',diff:'easy',o:['NumPy','SciPy','Matplotlib','Pandas'],a:2},
+{s:0,t:'What does df.describe() return in Pandas?',sub:'Pandas',diff:'easy',o:['Column names','Data types','Summary statistics','First 5 rows'],a:2},
+{s:0,t:'P(A union B) for mutually exclusive events equals?',sub:'Probability',diff:'medium',o:['P(A)*P(B)','P(A)+P(B)','P(A)+P(B)-P(AnB)','P(A)-P(B)'],a:1},
+{s:0,t:'Which method fills missing values with column mean?',sub:'Preprocessing',diff:'medium',o:['df.dropna()','df.fillna(df.mean())','df.replace()','df.impute()'],a:1},
+{s:0,t:'A correlation coefficient of -1 indicates?',sub:'Statistics',diff:'medium',o:['No correlation','Perfect positive correlation','Perfect negative correlation','Weak correlation'],a:2},
+{s:0,t:'Shape of DataFrame: 100 rows, 5 columns?',sub:'Pandas',diff:'easy',o:['(5,100)','(100,5)','[100,5]','500'],a:1},
+{s:0,t:'Which NumPy function computes the dot product?',sub:'NumPy',diff:'medium',o:['np.multiply()','np.cross()','np.dot()','np.sum()'],a:2},
+{s:0,t:'Bayes theorem is used for?',sub:'Probability',diff:'hard',o:['Calculating mean','Updating probability based on new evidence','Finding variance','Computing IQR'],a:1},
+{s:0,t:'Which plot best shows distribution of a continuous variable?',sub:'Visualization',diff:'easy',o:['Bar chart','Pie chart','Histogram','Line chart'],a:2},
+{s:0,t:'One-hot encoding converts?',sub:'Preprocessing',diff:'medium',o:['Numerical data to binary','Categorical data to binary','Fills missing values','Scales features'],a:1},
+{s:0,t:'What does df.merge() do in Pandas?',sub:'Pandas',diff:'medium',o:['Splits DataFrame','Combines DataFrames on a key','Sorts values','Removes duplicates'],a:1},
+{s:0,t:'What is variance?',sub:'Statistics',diff:'medium',o:['Sum of values','Average squared deviation from mean','Median squared','SD cubed'],a:1},
+{s:0,t:'df.count() returns?',sub:'Pandas',diff:'easy',o:['Non-null count per column','Sum per column','Row count only','Column names'],a:0},
+{s:0,t:'What does a box plot primarily display?',sub:'Visualization',diff:'easy',o:['Correlation','Time series','Distribution and outliers','Frequency'],a:2},
+{s:0,t:'In NumPy, axis=0 refers to?',sub:'NumPy',diff:'medium',o:['Column-wise operation','Row-wise operation','Element-wise','Diagonal'],a:0},
+{s:0,t:'Mode of dataset [2,3,3,5,7,3]?',sub:'Statistics',diff:'easy',o:['2','3','5','7'],a:1},
+{s:0,t:'Which test compares means of two groups?',sub:'Statistics',diff:'medium',o:['Chi-square','ANOVA','t-test','F-test'],a:2},
+{s:0,t:'df.pivot_table() aggregates data into?',sub:'Pandas',diff:'hard',o:['Charts','A summary table','Split DataFrames','Transposed data'],a:1},
+{s:0,t:'Standard normal distribution: Mean=? SD=?',sub:'Statistics',diff:'medium',o:['Mean=1,SD=0','Mean=0,SD=1','Mean=0,SD=0','Mean=1,SD=1'],a:1},
+{s:0,t:'np.linspace(0,10,5) returns?',sub:'NumPy',diff:'medium',o:['5 random numbers','5 evenly spaced numbers from 0 to 10','Integers 0 to 10','10 zeros'],a:1},
+{s:0,t:'A heatmap in data science primarily shows?',sub:'Visualization',diff:'easy',o:['Time trends','Correlation matrix','Category comparisons','Distributions'],a:1},
+{s:0,t:'Label encoding assigns?',sub:'Preprocessing',diff:'medium',o:['Binary vectors','Integer values to categories','Scaled labels','Remove labels'],a:1},
+{s:0,t:'df.duplicated() returns?',sub:'Pandas',diff:'easy',o:['Unique rows','Boolean series marking duplicate rows','Count of duplicates','Duplicate columns'],a:1},
+{s:0,t:'Which distribution describes successes in n independent trials?',sub:'Probability',diff:'medium',o:['Normal','Poisson','Binomial','Uniform'],a:2},
+{s:0,t:'Feature engineering means?',sub:'Preprocessing',diff:'medium',o:['Removing features','Creating new features from existing data','Model selection','Hyperparameter tuning'],a:1},
+{s:0,t:'Scatter plot primarily shows?',sub:'Visualization',diff:'easy',o:['Time trends','Relationship between two variables','Category frequencies','Part-to-whole'],a:1},
+{s:0,t:'Key difference: df.loc[] vs df.iloc[]?',sub:'Pandas',diff:'medium',o:['No difference','loc uses labels; iloc uses integer positions','iloc uses labels; loc uses integers','Both use integers'],a:1},
+{s:0,t:'What is covariance?',sub:'Statistics',diff:'medium',o:['Variance of single variable','Joint variability of two variables','Ratio of standard deviations','Difference of means'],a:1},
+{s:0,t:'df.apply() does what?',sub:'Pandas',diff:'medium',o:['Filters rows','Applies function along an axis','Creates new column','Sorts DataFrame'],a:1},
+{s:0,t:'Central Limit Theorem states?',sub:'Statistics',diff:'hard',o:['Sample means follow normal distribution for large n','All populations are normally distributed','Mean equals median','Variance is always 1'],a:0},
+{s:0,t:'sns.heatmap() requires?',sub:'Visualization',diff:'medium',o:['A list','A 2D matrix or correlation matrix','A series','A plot object'],a:1},
+{s:0,t:'Train-test split purpose?',sub:'ML Basics',diff:'easy',o:['Data cleaning','Evaluate model on unseen data','Feature selection','Normalization'],a:1},
+{s:1,t:'What is a process in OS?',sub:'Processes',diff:'easy',o:['A file on disk','A program in execution','An I/O device','A memory location'],a:1},
+{s:1,t:'SJF scheduling selects process with?',sub:'Scheduling',diff:'medium',o:['Highest priority','Longest burst','Shortest burst time','First arrived'],a:2},
+{s:1,t:'Deadlock is a situation where?',sub:'Concurrency',diff:'medium',o:['Process waits for CPU','Processes in circular wait for resources','Memory overflows','Disk fails'],a:1},
+{s:1,t:'Virtual memory allows?',sub:'Memory',diff:'medium',o:['Faster RAM','Processes larger than physical RAM','Cache optimization','Register management'],a:1},
+{s:1,t:'Semaphore is used for?',sub:'Concurrency',diff:'medium',o:['File management','Process synchronization','Disk scheduling','CPU scheduling'],a:1},
+{s:1,t:'FCFS serves which process first?',sub:'Scheduling',diff:'easy',o:['Highest priority','Shortest burst','Arrived first','Smallest PID'],a:2},
+{s:1,t:'Paging divides memory into?',sub:'Memory',diff:'medium',o:['Variable-size segments','Fixed-size pages','Compacted regions','Dynamic blocks'],a:1},
+{s:1,t:'OS kernel primarily manages?',sub:'OS Basics',diff:'easy',o:['User programs','Hardware resources','GUI display','Network'],a:1},
+{s:1,t:'Context switch involves?',sub:'Processes',diff:'medium',o:['Changing file permissions','Saving and restoring CPU state when switching processes','Switching users','Changing scheduling algorithm'],a:1},
+{s:1,t:'Which is NOT a deadlock condition?',sub:'Concurrency',diff:'hard',o:['Mutual exclusion','Hold and wait','Preemption','Circular wait'],a:2},
+{s:1,t:'Difference: process vs thread?',sub:'Processes',diff:'medium',o:['No difference','Threads share process memory; processes have separate spaces','Processes share memory; threads do not','Threads have own address space'],a:1},
+{s:1,t:'Thrashing occurs when?',sub:'Memory',diff:'hard',o:['CPU runs at 100%','Excessive paging degrades performance','Disk fragments','Deadlock state'],a:1},
+{s:1,t:'TLB (Translation Lookaside Buffer) speeds up?',sub:'Memory',diff:'hard',o:['Disk reads','Virtual-to-physical address translation','Page table storage','Instruction caching'],a:1},
+{s:1,t:'Contiguous file allocation suffers from?',sub:'File Systems',diff:'hard',o:['Internal fragmentation','Linked list overhead','External fragmentation','Index overhead'],a:2},
+{s:1,t:'RAID stands for?',sub:'Storage',diff:'easy',o:['Random Access Input Data','Redundant Array of Independent Disks','Rapid Allocation for I/O Devices','Reliable Array of Integrated Drives'],a:1},
+{s:1,t:'Race condition occurs when?',sub:'Concurrency',diff:'medium',o:['CPU speed mismatch','Multiple processes access shared data unpredictably','Memory leak','Stack overflow'],a:1},
+{s:1,t:'LRU page replacement replaces?',sub:'Memory',diff:'medium',o:['Most recently used page','Least recently used page','First loaded page','Random page'],a:1},
+{s:1,t:'An inode in Unix stores?',sub:'File Systems',diff:'medium',o:['File name','File metadata (size, permissions, timestamps)','Process ID','Memory page'],a:1},
+{s:1,t:"Banker's algorithm is used for?",sub:'Concurrency',diff:'hard',o:['CPU scheduling','Deadlock avoidance','Memory allocation','Disk scheduling'],a:1},
+{s:1,t:'Round Robin time quantum is?',sub:'Scheduling',diff:'easy',o:['Priority level','Fixed time slice per process','Burst time','Wait time'],a:1},
+{s:1,t:'Demand paging loads pages?',sub:'Memory',diff:'medium',o:['All pages upfront','Only when needed (on page fault)','All to disk immediately','Pre-fetches all pages'],a:1},
+{s:1,t:'Critical section is?',sub:'Concurrency',diff:'medium',o:['High-priority OS code','Code that accesses shared resources','Kernel-only code','I/O handling code'],a:1},
+{s:1,t:'fork() system call?',sub:'Processes',diff:'medium',o:['Creates a new thread','Creates a child process','Loads a program','Terminates a process'],a:1},
+{s:1,t:'Page table maps?',sub:'Memory',diff:'medium',o:['Physical to virtual addresses','Virtual to physical addresses','Cache to RAM','Disk to RAM'],a:1},
+{s:1,t:'Multilevel Queue scheduling handles?',sub:'Scheduling',diff:'medium',o:['One queue only','Multiple queues with different priorities','FIFO only','Shortest job only'],a:1},
+{s:1,t:'Internal fragmentation is?',sub:'Memory',diff:'medium',o:['Wasted space outside allocated block','Wasted space inside allocated block','Memory leak','Swapping overhead'],a:1},
+{s:1,t:'Zombie process is a process that?',sub:'Processes',diff:'medium',o:['Uses 100% CPU','Has terminated but entry remains in process table','Is sleeping','Is waiting for I/O'],a:1},
+{s:1,t:'exec() system call?',sub:'Processes',diff:'medium',o:['Creates child process','Replaces current process image with new program','Terminates process','Suspends process'],a:1},
+{s:1,t:'Mutex ensures?',sub:'Concurrency',diff:'medium',o:['Process scheduling order','Mutual exclusion for shared resources','Memory management','Interrupt handling'],a:1},
+{s:1,t:'SSTF disk scheduling minimizes?',sub:'Storage',diff:'medium',o:['Rotational latency','Seek time','Transfer time','Queue length'],a:1},
+{s:1,t:'Swapping moves?',sub:'Memory',diff:'medium',o:['Pages to disk','Entire process between RAM and disk','Memory blocks','Virtual pages'],a:1},
+{s:1,t:'File descriptor in Unix is?',sub:'File Systems',diff:'medium',o:['File name','Integer handle for an open file','File permissions','Directory path'],a:1},
+{s:1,t:'Interrupt in OS?',sub:'OS Basics',diff:'medium',o:['Schedules processes','Signals CPU to handle an asynchronous event','Manages memory','Controls I/O directly'],a:1},
+{s:1,t:'Spooling is?',sub:'OS Basics',diff:'medium',o:['CPU scheduling','Buffering I/O data for slow devices','Memory paging','File system operation'],a:1},
+{s:1,t:'Monitor in concurrency is?',sub:'Concurrency',diff:'hard',o:['Hardware monitor','High-level synchronization construct with mutex and condition variables','OS process','Memory region'],a:1},
+{s:1,t:'Boot loader role?',sub:'OS Basics',diff:'easy',o:['Manage files','Load OS into memory at startup','Handle I/O','Manage processes'],a:1},
+{s:1,t:'Aging in scheduling prevents?',sub:'Scheduling',diff:'medium',o:['CPU overuse','Starvation by gradually increasing priority of waiting processes','Old process termination','Time quantum reduction'],a:1},
+{s:1,t:'System call is?',sub:'OS Basics',diff:'easy',o:['User program function','Interface for programs to request OS kernel services','Hardware interrupt','Memory reference'],a:1},
+{s:1,t:'Copy-on-write (COW) means?',sub:'Memory',diff:'hard',o:['Copies files on write','Shares memory pages between processes until one modifies','Writes data twice','Backup mechanism'],a:1},
+{s:1,t:'Preemptive scheduling differs from non-preemptive because?',sub:'Scheduling',diff:'medium',o:['No difference','Preemptive can interrupt a running process; non-preemptive cannot','Non-preemptive is faster','Preemptive uses priority only'],a:1},
+{s:2,t:'typeof null in JavaScript returns?',sub:'Types',diff:'medium',o:['"null"','"undefined"','"object"','"boolean"'],a:2},
+{s:2,t:'A closure in JavaScript is?',sub:'Functions',diff:'medium',o:['A class definition','A function that retains access to outer scope variables','An arrow function','A promise'],a:1},
+{s:2,t:'=== differs from == because?',sub:'Operators',diff:'easy',o:['No difference','It checks type and value (no coercion)','Compares only types','Assignment'],a:1},
+{s:2,t:'console.log(0.1+0.2===0.3) outputs?',sub:'Types',diff:'medium',o:['true','false','undefined','Error'],a:1},
+{s:2,t:'Event bubbling means?',sub:'DOM',diff:'medium',o:['Creating events','Events propagating from child up to parent elements','Loading DOM','Binding listeners'],a:1},
+{s:2,t:'Promise.all() resolves when?',sub:'Async',diff:'medium',o:['First promise resolves','All promises resolve (or any rejects)','All promises reject','Timeout reached'],a:1},
+{s:2,t:'var vs let vs const: key difference?',sub:'Variables',diff:'medium',o:['No difference','var is function-scoped; let/const are block-scoped','const is function-scoped','let is global'],a:1},
+{s:2,t:'Spread operator ... does?',sub:'ES6+',diff:'easy',o:['Spreads virus','Expands an iterable into individual elements','Creates a copy','Merges functions'],a:1},
+{s:2,t:'The event loop in JS handles?',sub:'Async',diff:'hard',o:['A for loop','Async operations in single-threaded JS via call stack + queue','DOM events only','CSS animations'],a:1},
+{s:2,t:'Array.map() returns?',sub:'Arrays',diff:'easy',o:['Original array modified','New array with transformed elements','Undefined','Boolean'],a:1},
+{s:2,t:'Prototypal inheritance means?',sub:'OOP',diff:'hard',o:['Class-based inheritance','Objects inheriting directly from other objects via prototype chain','Functional inheritance','Module pattern'],a:1},
+{s:2,t:'async/await purpose?',sub:'Async',diff:'medium',o:['Make everything synchronous','Write asynchronous code in synchronous-looking style','Cancel promises','Handle DOM events'],a:1},
+{s:2,t:'Array.reduce() does?',sub:'Arrays',diff:'medium',o:['Filters array','Creates new array','Accumulates array elements to a single value','Sorts array'],a:2},
+{s:2,t:'Hoisting in JavaScript means?',sub:'Variables',diff:'medium',o:['Moving code to server','Variable/function declarations are moved to the top of their scope','Late binding','Lazy evaluation'],a:1},
+{s:2,t:'WeakMap in JS?',sub:'Data Structures',diff:'hard',o:['Regular Map','Map with weak (garbage-collectible) references; keys must be objects','Immutable Map','Sorted Map'],a:1},
+{s:2,t:'JSON.stringify() converts?',sub:'JSON',diff:'easy',o:['JSON string to object','JS object to JSON string','Validates JSON','Encrypts data'],a:1},
+{s:2,t:'Symbol in JS creates?',sub:'ES6+',diff:'hard',o:['Numbers','Unique, immutable primitive identifiers','Strings','Objects'],a:1},
+{s:2,t:'Array.flat() does?',sub:'Arrays',diff:'medium',o:['Sorts array','Removes duplicates','Flattens nested arrays into a single array','Reverses array'],a:2},
+{s:2,t:'null vs undefined difference?',sub:'Types',diff:'medium',o:['No difference','null is explicit absence of value; undefined means not yet assigned','undefined is intentional','Both are the same type'],a:1},
+{s:2,t:'Object.freeze() does?',sub:'Objects',diff:'medium',o:['Deletes object','Makes object immutable (no modifications)','Deep copies object','Seals prototype only'],a:1},
+{s:2,t:'Generator function can?',sub:'ES6+',diff:'hard',o:['Generate random numbers','Pause and resume execution using yield','Run asynchronously','Construct objects'],a:1},
+{s:2,t:'new keyword does?',sub:'OOP',diff:'medium',o:['Declares variable','Creates a new object instance from a constructor','Imports module','Defines class'],a:1},
+{s:2,t:'this in an arrow function refers to?',sub:'Functions',diff:'hard',o:['The function itself','Enclosing scope (lexical this, not own this)','The window object','Always undefined'],a:1},
+{s:2,t:'Array.filter() returns?',sub:'Arrays',diff:'easy',o:['Modified original','New array with elements that pass the test','Boolean','Single value'],a:1},
+{s:2,t:'Module pattern (IIFE) purpose?',sub:'Patterns',diff:'medium',o:['ES6 import syntax','Create private scope and expose public API','Class definition','Prototype chain manipulation'],a:1},
+{s:2,t:'localStorage.setItem() stores data?',sub:'Web APIs',diff:'easy',o:['In a cookie','In browser local storage (persists)','In session only','On the server'],a:1},
+{s:2,t:'Debouncing means?',sub:'Performance',diff:'medium',o:['Removing event listeners','Delaying function execution until user stops firing events','Throttling API calls','Caching results'],a:1},
+{s:2,t:'Object.keys() returns?',sub:'Objects',diff:'easy',o:['Object values','Array of own enumerable property names','All properties including inherited','Entries array'],a:1},
+{s:2,t:'try...catch purpose?',sub:'Error Handling',diff:'easy',o:['Loop control','Handle runtime errors gracefully without crashing','Define async code','Import modules'],a:1},
+{s:2,t:'Currying transforms function to?',sub:'Functions',diff:'hard',o:['Deep frying functions','Chain of single-argument functions from a multi-argument function','Memoized function','Partially applied function only'],a:1},
+{s:2,t:'setTimeout(fn,0) schedules fn to run?',sub:'Async',diff:'hard',o:['Immediately','After current call stack clears (next event loop tick)','In exactly 0ms','Never'],a:1},
+{s:2,t:'Proxy in JS intercepts?',sub:'ES6+',diff:'hard',o:['HTTP requests','Object operations like get/set/delete','Design patterns','Promise chains'],a:1},
+{s:2,t:'Array.from() creates array from?',sub:'Arrays',diff:'medium',o:['Array string','Array-like or iterable objects','Array copy only','Validates input'],a:1},
+{s:2,t:'Memoization is?',sub:'Performance',diff:'medium',o:['Object memory storage','Caching function results to avoid re-computing same inputs','Garbage collection','Memory leak'],a:1},
+{s:2,t:'Temporal Dead Zone (TDZ) is?',sub:'Variables',diff:'hard',o:['Pre-DOM load period','Period where let/const variables are declared but not yet initialized','Garbage collection window','Event queue'],a:1},
+{s:2,t:'Promise.race() resolves with?',sub:'Async',diff:'medium',o:['All resolved values','Result of the first settled promise (resolved or rejected)','Undefined','Array of results'],a:1},
+{s:2,t:'Object.assign() purpose?',sub:'Objects',diff:'medium',o:['Compares objects','Copies enumerable own properties from source(s) to target','Creates prototype chain','Freezes object'],a:1},
+{s:2,t:'Array.every() returns true if?',sub:'Arrays',diff:'easy',o:['Any element passes','All elements pass the test function','No elements pass','Array is not empty'],a:1},
+{s:2,t:'Tree shaking in bundlers does?',sub:'Build Tools',diff:'hard',o:['Optimizes DOM tree','Eliminates unused/dead code from bundle','Sorts algorithms','Memory optimization'],a:1},
+{s:2,t:'call() vs apply() difference?',sub:'Functions',diff:'medium',o:['No difference','call() takes args individually; apply() takes args as array','apply() is faster','call() returns this'],a:1},
+{s:3,t:'Time complexity of binary search?',sub:'Searching',diff:'easy',o:['O(n)','O(n2)','O(log n)','O(1)'],a:2},
+{s:3,t:'LIFO order is used by?',sub:'Stack',diff:'easy',o:['Queue','Stack','Linked List','Heap'],a:1},
+{s:3,t:'Average case hash table insertion?',sub:'Hashing',diff:'medium',o:['O(n)','O(log n)','O(1)','O(n log n)'],a:2},
+{s:3,t:'Preorder traversal visits in order?',sub:'Trees',diff:'easy',o:['Left, Root, Right','Right, Root, Left','Root, Left, Right','Left, Right, Root'],a:2},
+{s:3,t:'Balanced BST height with n nodes?',sub:'Trees',diff:'medium',o:['O(n)','O(log n)','O(1)','O(n2)'],a:1},
+{s:3,t:'BFS uses which data structure?',sub:'Graphs',diff:'medium',o:['Stack','Queue','Heap','Array'],a:1},
+{s:3,t:'Quicksort worst-case complexity?',sub:'Sorting',diff:'medium',o:['O(n log n)','O(n)','O(n2)','O(log n)'],a:2},
+{s:3,t:'Doubly linked list has?',sub:'Linked Lists',diff:'easy',o:['Two values per node','Both next and previous pointers','Only forward links','Circular structure'],a:1},
+{s:3,t:'Heapify (sift-down) complexity?',sub:'Heap',diff:'medium',o:['O(n)','O(log n)','O(n log n)','O(1)'],a:1},
+{s:3,t:'DFS visits nodes using?',sub:'Graphs',diff:'medium',o:['Queue','Priority Queue','Stack or recursion','Array only'],a:2},
+{s:3,t:'Stable sort with O(n log n) worst case?',sub:'Sorting',diff:'medium',o:['Quicksort','Heap sort','Merge sort','Selection sort'],a:2},
+{s:3,t:'Adjacency matrix represents?',sub:'Graphs',diff:'medium',o:['List of edges','2D array where cell[i][j]=1 if edge exists','Sorted nodes','Hash of edges'],a:1},
+{s:3,t:'Complete binary tree has?',sub:'Trees',diff:'medium',o:['All nodes with 2 children','All levels full except possibly last, filled left to right','No leaf nodes','Self-balancing property'],a:1},
+{s:3,t:'Merge sort space complexity?',sub:'Sorting',diff:'medium',o:['O(1)','O(log n)','O(n)','O(n log n)'],a:2},
+{s:3,t:'Min-heap property: parent is always?',sub:'Heap',diff:'medium',o:['Greater than children','Less than or equal to children','Equal to children','Unrelated to children'],a:1},
+{s:3,t:'Dynamic array push has amortized complexity?',sub:'Arrays',diff:'hard',o:['O(n)','O(log n)','O(1)','O(n2)'],a:2},
+{s:3,t:"Dijkstra's algorithm finds?",sub:'Graphs',diff:'medium',o:['Minimum spanning tree','Shortest path from source in non-negative weighted graph','Topological order','All cycles'],a:1},
+{s:3,t:'Trie is optimized for?',sub:'Trees',diff:'medium',o:['Integer sorting','String prefix search/autocomplete','Graph traversal','Number hashing'],a:1},
+{s:3,t:'Function call stack uses which DS?',sub:'Stack',diff:'easy',o:['Queue','Heap','Stack','Tree'],a:2},
+{s:3,t:'AVL tree insertion complexity?',sub:'Trees',diff:'hard',o:['O(n)','O(log n)','O(1)','O(n log n)'],a:1},
+{s:3,t:'Circular queue connects?',sub:'Queue',diff:'medium',o:['Head to another head','Rear pointer back to front','Nodes bidirectionally','To a priority queue'],a:1},
+{s:3,t:'Floyd-Warshall computes?',sub:'Graphs',diff:'hard',o:['Single source shortest path','All-pairs shortest paths','Minimum spanning tree','Topological sort'],a:1},
+{s:3,t:'Linear search worst case?',sub:'Searching',diff:'easy',o:['O(log n)','O(1)','O(n)','O(n2)'],a:2},
+{s:3,t:'Red-Black tree is?',sub:'Trees',diff:'hard',o:['Simple BST','Self-balancing BST with color properties ensuring O(log n) ops','Hash variant','Trie variant'],a:1},
+{s:3,t:'Segment tree supports?',sub:'Trees',diff:'hard',o:['String matching','Efficient range queries and point updates in O(log n)','Graph shortest paths','Perfect hashing'],a:1},
+{s:3,t:'Radix sort complexity?',sub:'Sorting',diff:'hard',o:['O(n log n)','O(n2)','O(n*k) where k is max digits','O(n)'],a:2},
+{s:3,t:'Open addressing in hashing resolves collisions by?',sub:'Hashing',diff:'medium',o:['Chained linked lists','Probing for another open slot in the table','External overflow area','Perfect hash function'],a:1},
+{s:3,t:'Deque stands for?',sub:'Queue',diff:'medium',o:['Double-ended queue','Distributed queue','Dedicated queue','Dense queue'],a:0},
+{s:3,t:'Topological sort applies to?',sub:'Graphs',diff:'medium',o:['Any undirected graph','Directed Acyclic Graph (DAG) for dependency ordering','Weighted graphs only','Cyclic graphs'],a:1},
+{s:3,t:'Building heap from n elements complexity?',sub:'Heap',diff:'hard',o:['O(n log n)','O(n2)','O(n)','O(log n)'],a:2},
+{s:3,t:'Skip list provides?',sub:'Advanced',diff:'hard',o:['Guaranteed O(1) search','Probabilistic O(log n) search via layered linked lists','Sorted hash table','Sparse tree'],a:1},
+{s:3,t:'Fenwick tree (BIT) efficiently handles?',sub:'Trees',diff:'hard',o:['Binary search','Prefix sum queries and point updates in O(log n)','Trie operations','Range delete'],a:1},
+{s:3,t:'B-tree is characterized by?',sub:'Trees',diff:'hard',o:['Exactly two children','Multiple keys per node, all leaves at same level, balanced','Self-rotating nodes','Used only for strings'],a:1},
+{s:3,t:'Bellman-Ford vs Dijkstra: key advantage?',sub:'Graphs',diff:'hard',o:['Bellman-Ford is faster','Bellman-Ford handles negative edge weights; Dijkstra cannot','Dijkstra handles negative weights','No difference'],a:1},
+{s:3,t:'Insertion sort runs in O(n) when?',sub:'Sorting',diff:'medium',o:['Array is sorted descending','Array is nearly or already sorted ascending','Array has duplicates','Array is random'],a:1},
+{s:3,t:'Euler path traverses?',sub:'Graphs',diff:'hard',o:['Every vertex exactly once','Every edge exactly once','Shortest path','All cycles'],a:1},
+{s:3,t:'BFS vs DFS: BFS explores?',sub:'Graphs',diff:'medium',o:['Deepest nodes first','All neighbors at current level before going deeper','Random order','Weighted paths'],a:1},
+{s:3,t:'Sparse table answers RMQ in?',sub:'Advanced',diff:'hard',o:['O(n)','O(log n)','O(1) with O(n log n) preprocessing','O(n2)'],a:2},
+{s:3,t:'Inorder traversal of BST gives?',sub:'Trees',diff:'easy',o:['Random order','Sorted ascending order','Root first','Leaves first'],a:1},
+{s:3,t:"Kruskal's algorithm builds?",sub:'Graphs',diff:'medium',o:['Shortest path tree','Minimum Spanning Tree by sorting edges by weight','Topological order','Euler path'],a:1},
+{s:4,t:'Overfitting in ML means?',sub:'ML Basics',diff:'medium',o:['Model is too simple','Model memorizes training data and performs poorly on new data','Model ignores training data','Model is underfitting'],a:1},
+{s:4,t:'Gradient descent minimizes?',sub:'Optimization',diff:'medium',o:['Training data size','The loss/cost function','Number of features','Model complexity'],a:1},
+{s:4,t:'Kernel trick in SVM?',sub:'SVM',diff:'hard',o:['Speeds up computation','Implicitly maps data to higher-dimensional space for non-linear separation','Reduces dimensionality','Applies regularization'],a:1},
+{s:4,t:'Confusion matrix contains?',sub:'Evaluation',diff:'medium',o:['Feature importance','TP, FP, TN, FN prediction counts','Training loss','Hyperparameter values'],a:1},
+{s:4,t:'Bias-variance tradeoff balances?',sub:'ML Basics',diff:'hard',o:['Speed vs accuracy','Model simplicity (bias) vs sensitivity to training data (variance)','Precision vs recall','Train performance vs test performance'],a:1},
+{s:4,t:'Random Forest combines?',sub:'Ensemble',diff:'medium',o:['Gradient boosted trees','Multiple decision trees trained on bootstrap samples (bagging)','Single large decision tree','Linear regressors'],a:1},
+{s:4,t:'L2 regularization penalizes?',sub:'Optimization',diff:'medium',o:['Speeds up training','Large model weights to prevent overfitting','Normalizes input data','Selects features'],a:1},
+{s:4,t:'K-means clustering partitions data into?',sub:'Unsupervised',diff:'medium',o:['A single cluster','K groups by minimizing intra-cluster distance','Decision tree nodes','Regression output'],a:1},
+{s:4,t:'Bubble sort worst case?',sub:'Sorting',diff:'easy',o:['O(n log n)','O(n)','O(n2)','O(log n)'],a:2},
+{s:4,t:'Backpropagation computes?',sub:'Neural Networks',diff:'medium',o:['Forward activations','Gradients of loss w.r.t. weights via chain rule','Data augmentation','Regularization penalty'],a:1},
+{s:4,t:'Precision formula?',sub:'Evaluation',diff:'medium',o:['TP/(TP+FN)','TP/(TP+FP)','TN/(TN+FP)','TP/(TP+FP+FN)'],a:1},
+{s:4,t:'PCA reduces dimensionality by?',sub:'Dimensionality',diff:'hard',o:['Removing correlated features','Projecting data onto directions of maximum variance','Clustering','Feature normalization'],a:1},
+{s:4,t:'Activation functions in neural nets introduce?',sub:'Neural Networks',diff:'medium',o:['Linear relationships','Non-linearity enabling learning of complex patterns','Weight initialization','Batch normalization'],a:1},
+{s:4,t:'0/1 Knapsack optimally solved by?',sub:'DP',diff:'medium',o:['Greedy algorithm','Dynamic programming','Divide and conquer','Backtracking'],a:1},
+{s:4,t:'Cross-validation estimates?',sub:'Evaluation',diff:'medium',o:['Feature importance','Model generalization performance on unseen data','Optimal hyperparameters directly','Training speed'],a:1},
+{s:4,t:'LSTM stands for?',sub:'Neural Networks',diff:'medium',o:['Long Short-Term Memory','Large Scale Training Model','Linear Supervised Training Method','Layered Stochastic Training Model'],a:0},
+{s:4,t:'Greedy algorithm makes?',sub:'Algorithms',diff:'medium',o:['Exhaustive search','Locally optimal choice at each step hoping for global optimum','Random selections','DP-based decisions'],a:1},
+{s:4,t:'Dropout in neural nets works by?',sub:'Neural Networks',diff:'medium',o:['Speeding up training','Randomly deactivating neurons during training to reduce overfitting','Augmenting data','Initializing weights'],a:1},
+{s:4,t:'LCS (Longest Common Subsequence) uses?',sub:'DP',diff:'hard',o:['Greedy algorithm','Dynamic programming with 2D table','Divide and conquer','Pure backtracking'],a:1},
+{s:4,t:'ROC curve plots?',sub:'Evaluation',diff:'medium',o:['Loss over epochs','True Positive Rate vs False Positive Rate at various thresholds','Feature importance','Confusion matrix values'],a:1},
+{s:4,t:'Hyperparameter is set?',sub:'ML Basics',diff:'easy',o:['By learning algorithm automatically','Before training (not learned from data)','By activation function','By loss function'],a:1},
+{s:4,t:'Master theorem solves?',sub:'Algorithms',diff:'hard',o:['Sorting recurrences only','Divide-and-conquer recurrences of form T(n)=aT(n/b)+f(n)','Graph complexity','NP problems'],a:1},
+{s:4,t:'Transfer learning uses?',sub:'Neural Networks',diff:'medium',o:['Transferring data between servers','Pre-trained model weights as starting point for new task','Training from scratch on new data','Ensemble of models'],a:1},
+{s:4,t:'Merge sort complexity?',sub:'Sorting',diff:'medium',o:['O(n2)','O(n)','O(n log n)','O(log n)'],a:2},
+{s:4,t:'Naive Bayes classifier assumes?',sub:'ML Basics',diff:'medium',o:['Decision tree structure','Feature independence given class label','Neural network connections','SVM hyperplane'],a:1},
+{s:4,t:'0/1 Knapsack DP table has size?',sub:'DP',diff:'hard',o:['O(n log n)','O(n)','O(n * W) where W is capacity','O(2n)'],a:2},
+{s:4,t:'F1 score is?',sub:'Evaluation',diff:'medium',o:['Accuracy metric','Harmonic mean of precision and recall','Area under ROC curve','Loss value'],a:1},
+{s:4,t:'One epoch in NN training means?',sub:'Neural Networks',diff:'easy',o:['One learning rate update','One complete pass through entire training dataset','Single neuron update','One batch only'],a:1},
+{s:4,t:"Dijkstra's with priority queue runs in?",sub:'Algorithms',diff:'hard',o:['O(V2)','O((V+E) log V)','O(V log E)','O(V+E)'],a:1},
+{s:4,t:'SGD (Stochastic Gradient Descent) uses?',sub:'Optimization',diff:'medium',o:['Full dataset per step','One sample or mini-batch per gradient update step','Regularization only','Second-order derivatives'],a:1},
+{s:4,t:'CNN is most suited for?',sub:'Neural Networks',diff:'medium',o:['Text generation','Image and spatial data processing via convolutional filters','Time series only','Reinforcement learning'],a:1},
+{s:4,t:'The halting problem is?',sub:'Theory',diff:'hard',o:['A sorting challenge','An undecidable problem: cannot determine if arbitrary program halts','NP-complete problem','Graph theory problem'],a:1},
+{s:4,t:'P vs NP asks whether?',sub:'Theory',diff:'hard',o:['Polynomial is faster than non-polynomial','Every NP problem can be solved in polynomial time','Parallel computing is worthwhile','Memory scales polynomially'],a:1},
+{s:4,t:'XGBoost is?',sub:'Ensemble',diff:'medium',o:['Random forest variant','Optimized gradient boosting with regularization and parallel processing','Simple neural network','SVM with boosting'],a:1},
+{s:4,t:'Batch normalization in deep learning?',sub:'Neural Networks',diff:'hard',o:['Increases batch size','Normalizes layer inputs to stabilize and accelerate training','Only normalizes input data','Acts only as regularization'],a:1},
+{s:4,t:'TSP (Traveling Salesman Problem) asks?',sub:'Algorithms',diff:'medium',o:['Shortest path between two nodes','Find minimum cost Hamiltonian cycle visiting all cities','Minimum spanning tree','Knapsack maximization'],a:1},
+{s:4,t:'Autoencoder is used for?',sub:'Neural Networks',diff:'hard',o:['Supervised classification','Unsupervised representation learning via encode-decode bottleneck','Standard RNN operation','Attention mechanism'],a:1},
+{s:4,t:'Reinforcement learning learns from?',sub:'ML Basics',diff:'medium',o:['Labeled data only','Reward/penalty signals from environment interaction','Clustering unlabeled data','Semi-supervised signals'],a:1},
+{s:4,t:'Selection sort worst case?',sub:'Sorting',diff:'easy',o:['O(n log n)','O(n)','O(n2)','O(1)'],a:2},
+{s:4,t:'Attention mechanism in transformers?',sub:'Neural Networks',diff:'hard',o:['Human-like visual focus','Learns to weight importance of each input position when producing output','Memory unit in LSTM','Positional encoding'],a:1},
+];
+
+const L=['A','B','C','D'];
+let cQ=0,ans=new Array(200).fill(-1),flg=new Array(200).fill(false);
+let tL=7200;const TOT=7200,CIRC=2*Math.PI*37;
+let timerInterval=null;
+function pad(n){return String(n).padStart(2,'0')}
+const rPel=document.getElementById('rP');
+const tMel=document.getElementById('tM'),tSel=document.getElementById('tS');
+const tDig=document.getElementById('tDig'),tBel=document.getElementById('tB'),tCel=document.getElementById('tC');
+const nChip=document.getElementById('nChip'),nTD=document.getElementById('nTD'),nTI=document.getElementById('nTI');
+const PC={safe:'#1db854',warning:'#f0a500',critical:'#e8404a'};
+const PI={safe:'⏱',warning:'⚠',critical:'⚡'};
+function gP(s){return s/TOT>.25?'safe':s/TOT>.1?'warning':'critical'}
+function resetExam(){
+  cQ=0;ans=new Array(200).fill(-1);flg=new Array(200).fill(false);tL=7200;violCount=0;
+  if(timerInterval)clearInterval(timerInterval);
+  timerInterval=setInterval(tick,1000);
+  setTimeout(()=>{rQ();uS()},50);
+}
+function tick(){
+  const m=Math.floor(tL/60),s=tL%60,ph=gP(tL),c=PC[ph];
+  tMel.textContent=pad(m);tSel.textContent=pad(s);
+  rPel.style.stroke=c;rPel.setAttribute('stroke-dashoffset',CIRC*(1-tL/TOT));
+  tDig.style.color=c;tCel.style.setProperty('--tc',c);tCel.className='tmc '+ph;
+  tBel.className='tb '+ph;tBel.textContent=ph==='safe'?'In Progress':ph==='warning'?'⚠ Hurry Up':'⚡ Critical';
+  nChip.className='tc '+ph;nTD.textContent=pad(m)+':'+pad(s);nTI.textContent=PI[ph];
+  if(tL===1800)toast('warn','⚠ 30 minutes remaining, '+((CU&&CU.first)||'Student')+'!');
+  if(tL===600)toast('warn','⚠ 10 minutes left!');
+  if(tL===120)toast('err2','⚡ Last 2 minutes!');
+  if(tL===0){clearInterval(timerInterval);cSub(true);return}tL--;
+}
+function sCls(si){return['ds','os','js','dsa','ml'][si]}
+function sCol(si){return['var(--ds)','var(--os)','var(--js)','var(--dsa)','var(--ml)'][si]}
+function sBc(si){const c=[[79,126,248],[15,184,164],[232,200,72],[168,85,247],[249,115,22]];const r=c[si];return'rgba('+r[0]+','+r[1]+','+r[2]+',.3)'}
+function rQ(){
+  const q=QS[cQ];const si=q.s;
+  const qb=document.getElementById('qBadge');if(!qb)return;
+  qb.textContent='Q'+(cQ+1);qb.style.color=sCol(si);qb.style.borderColor=sBc(si);
+  document.getElementById('qT').textContent=q.t;
+  document.getElementById('qDiff').textContent=q.diff.charAt(0).toUpperCase()+q.diff.slice(1);
+  document.getElementById('qDiff').className='qtag '+q.diff;
+  document.getElementById('qTopic').textContent=q.sub;
+  const fb=document.getElementById('fBtn');fb.className='fb'+(flg[cQ]?' on':'');fb.textContent=flg[cQ]?'⚑ Flagged':'⚑ Flag';
+  const S=SUBS[si];
+  document.getElementById('subIcon').textContent=S.icon;
+  document.getElementById('subNameMain').textContent=S.name;
+  document.getElementById('subNameMain').style.color=sCol(si);
+  document.getElementById('subDesc').textContent=S.desc;
+  document.getElementById('subBadge').textContent=S.range;
+  document.getElementById('subBadge').style.color=sCol(si);
+  document.getElementById('subBadge').style.borderColor=sBc(si);
+  const ol=document.getElementById('oList');ol.innerHTML='';
+  q.o.forEach((o,i)=>{
+    const d=document.createElement('div');d.className='opt'+(ans[cQ]===i?' sel':'');
+    d.innerHTML='<div class="ol">'+L[i]+'</div><div class="ot">'+o+'</div>';
+    d.onclick=()=>{ans[cQ]=i;rQ();uS()};ol.appendChild(d);
+  });
+  const pb=document.getElementById('pBtn');if(pb){pb.disabled=cQ===0;pb.style.opacity=cQ===0?'.3':'1'}
+  const nb2=document.getElementById('nBtn');if(nb2)nb2.textContent=cQ===199?'Finish →':'Next →';
+  document.getElementById('nCQ').textContent=cQ+1;
+  document.querySelectorAll('.stab').forEach((t,i)=>{t.className='stab'+(i===si?' active':'')+(i===si?' active':'')});
+  // Fix active tab styling
+  document.querySelectorAll('.stab').forEach((t,i)=>{
+    t.classList.toggle('active',i===si);
+  });
+  const c=document.getElementById('qC');if(c){c.style.animation='none';void c.offsetWidth;c.style.animation='cI .25s ease'}
+  rG();
+}
+function cAns(){ans[cQ]=-1;rQ();uS()}
+function tFlag(){flg[cQ]=!flg[cQ];rQ();uS();toast(flg[cQ]?'warn':'info',flg[cQ]?'⚑ Q'+(cQ+1)+' flagged':'Flag removed')}
+function nextQ(){if(cQ<199){cQ++;rQ()}else oM()}
+function prevQ(){if(cQ>0){cQ--;rQ()}}
+function goQ(){const v=parseInt(document.getElementById('qnI').value);if(v>=1&&v<=200){cQ=v-1;rQ();document.getElementById('qnI').value=''}}
+function goSub(si){cQ=si*40;rQ()}
+function rG(){
+  const g=document.getElementById('qG');if(!g)return;g.innerHTML='';
+  QS.forEach((_,i)=>{
+    const b=document.createElement('button');
+    b.className='qb'+(i===cQ?' cur':ans[i]>=0?' ans '+sCls(QS[i].s):'')+(flg[i]?' flg':'');
+    b.textContent=i+1;b.onclick=()=>{cQ=i;rQ()};g.appendChild(b);
+  });
+}
+function uS(){
+  const a=ans.filter(x=>x>=0).length,f=flg.filter(Boolean).length;
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  setEl('stA',a);setEl('stF',f);setEl('stR',200-a);setEl('nAns',a);
+  const pct=(a/200)*100;
+  const np=document.getElementById('nP');if(np)np.style.width=pct+'%';
+  setEl('nPL',a+'/200');
+  const nb3=document.getElementById('examNb');if(nb3)nb3.style.setProperty('--pg',pct+'%');
+  setEl('liveScore',a);setEl('livePct',Math.round(pct)+'% Complete');
+  const ids=['DS','OS','JS','DSA','ML'];
+  for(let si=0;si<5;si++){
+    const sa=ans.slice(si*40,(si+1)*40).filter(x=>x>=0).length;
+    setEl('sp'+ids[si],sa+'/40');setEl('ss'+ids[si],sa+'/40');setEl('tc'+si,sa+'/40');
+    const sf=document.getElementById('sf'+ids[si]);if(sf)sf.style.width=(sa/40*100)+'%';
+  }
+}
+function oM(){
+  const a=ans.filter(x=>x>=0).length,f=flg.filter(Boolean).length;
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  setEl('msA',a);setEl('msF',f);setEl('msU',200-a);
+  const m=Math.floor(tL/60),s=tL%60;setEl('msT',pad(m)+':'+pad(s));
+  if(violCount>0){const vc=document.getElementById('violCountTxt');if(vc){vc.style.display='';vc.textContent='⚠ '+violCount+' proctoring violation'+(violCount>1?'s':'')+' recorded'}}
+  const ids=['DS','OS','JS','DSA','ML'];
+  for(let si=0;si<5;si++){const sa=ans.slice(si*40,(si+1)*40).filter(x=>x>=0).length;setEl('m'+ids[si],sa+'/40')}
+  document.getElementById('modal').classList.add('open');
+}
+function cM(){document.getElementById('modal').classList.remove('open')}
+function cSub(auto=false){
+  cM();clearInterval(timerInterval);
+  let correct=0;ans.forEach((v,i)=>{if(v===QS[i].a)correct++});
+  const pct=Math.round(correct/200*100);
+  const uname=CU?CU.first:'Student';
+  toast('ok',auto?'Time up! '+correct+'/200':'Submitted! '+uname+': '+correct+'/200 ('+pct+'%)');
+  setTimeout(()=>{
+    const ss=[];
+    for(let si=0;si<5;si++){let sc=0;for(let i=si*40;i<(si+1)*40;i++){if(ans[i]===QS[i].a)sc++;}ss.push(sc)}
+    const pass=correct>=100;
+    const roll=CU?CU.roll:'—';
+    const batch=CU?(CU.batch||'2023-2026').replace('-','–'):'2023–2026';
+    const violNote=violCount>0?'<div style="font-size:11px;color:var(--warn);margin-top:-4px">⚠ '+violCount+' proctoring violation'+(violCount>1?'s':'')+' recorded</div>':'';
+    document.getElementById('mainArea').innerHTML=`<div class="rp2">
+<div class="rb">🎓</div>
+<div class="rt2">BCA Examination Complete!</div>
+<div style="font-family:var(--mn);font-size:10px;color:var(--a2);margin-top:-4px">${uname} · ${roll} · BCA ${batch}</div>
+${violNote}
+<div class="rs">Your responses for all 200 questions have been recorded and submitted for evaluation.</div>
+<div class="rcs">
+<div class="rca"><div class="rv" style="color:var(--a2)">${correct}</div><div class="rk">Correct</div></div>
+<div class="rca"><div class="rv" style="color:${pass?'var(--safe)':'var(--danger)'}">${pct}%</div><div class="rk">Score</div></div>
+<div class="rca"><div class="rv" style="color:var(--warn)">${ans.filter(x=>x>=0).length}</div><div class="rk">Attempted</div></div>
+<div class="rca"><div class="rv" style="color:${pass?'var(--safe)':'var(--danger)'}">${pass?'PASS':'FAIL'}</div><div class="rk">Status</div></div>
+</div>
+<div class="rsubs">
+<div class="rsub"><div class="rsub-val" style="color:var(--ds)">${ss[0]}/40</div><div class="rsub-name">Data Science</div></div>
+<div class="rsub"><div class="rsub-val" style="color:var(--os)">${ss[1]}/40</div><div class="rsub-name">OS</div></div>
+<div class="rsub"><div class="rsub-val" style="color:var(--js)">${ss[2]}/40</div><div class="rsub-name">JavaScript</div></div>
+<div class="rsub"><div class="rsub-val" style="color:var(--dsa)">${ss[3]}/40</div><div class="rsub-name">Data Structures</div></div>
+<div class="rsub"><div class="rsub-val" style="color:var(--ml)">${ss[4]}/40</div><div class="rsub-name">ML & Algorithms</div></div>
+</div>
+<button class="back-dash-btn" onclick="stopCam();showPage('dashPage')">← Back to Dashboard</button>
+</div>`;
+  },1400);
+}
+function toast(type,msg){
+  const c=document.getElementById('toastC'),t=document.createElement('div');
+  t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+  setTimeout(()=>t.style.opacity='0',3200);setTimeout(()=>t.remove(),3700);
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('examPage').classList.contains('active'))return;
+  if(document.activeElement.matches('input'))return;
+  if(e.key==='ArrowRight')nextQ();
+  if(e.key==='ArrowLeft')prevQ();
+  if(e.key>='1'&&e.key<='4'){const i=parseInt(e.key)-1;if(i<QS[cQ].o.length){ans[cQ]=i;rQ();uS()}}
+});
+const sv=localStorage.getItem('ef_session');
+if(sv){const u=STORE.find(sv);if(u){CU=u;fillDash(u);showPage('dashPage')}}
+</script>
+</body>
+</html>

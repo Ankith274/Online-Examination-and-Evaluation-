@@ -1,0 +1,14 @@
+Flask>=3.0.0
+Flask-SQLAlchemy>=3.1.1
+Flask-Login>=0.6.3
+Flask-Bcrypt>=1.0.1
+Werkzeug>=3.0.1
+uvicorn>=0.30.0
+
+# ── Theory Paper Upload Module – ML Dependencies ─────────────────────────
+PyMuPDF>=1.24.0          # PDF text extraction (digital PDFs, no system dep needed)
+Pillow>=10.0.0           # Image handling for OCR
+pytesseract>=0.3.10      # OCR wrapper for scanned images (needs Tesseract installed)
+scikit-learn>=1.4.0      # TF-IDF, Cosine Similarity (Models 2-5)
+numpy>=1.26.0            # Numeric ops
+reportlab>=4.0.0         # PDF scorecard generation (already used)
